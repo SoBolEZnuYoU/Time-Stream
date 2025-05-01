@@ -1,4 +1,4 @@
-import { styles } from './analytics.module.css'
+import styles from './analytics.module.css'
 
 export const Analytics = () => {
     return (

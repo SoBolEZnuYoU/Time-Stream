@@ -1,4 +1,4 @@
-import { styles } from './projects.module.css';
+import styles from './projects.module.css';
 
 export const Projects = () => {
 	const projects = [];
@@ -9,7 +9,7 @@ export const Projects = () => {
 				{projects.map(({ id, title, created_at }) => {
 					return (
 						<li key={id}>
-                            <button className={styles.functions}>|</button>
+							<button className={styles.functions}>|</button>
 							{title}
 							<p className={styles.date}>{created_at}</p>
 						</li>

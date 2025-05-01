@@ -1,4 +1,4 @@
-import { styles } from './tasks.module.css';
+import styles from './tasks.module.css';
 
 export const Tasks = () => {
     const tasks = []
