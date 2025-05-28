@@ -1,17 +1,17 @@
-import styles from './projects.module.css';
+import styled from "styled-components";
 
-export const Projects = () => {
+const ProjectsContainer = ({className}) => {
 	const projects = [];
 
 	return (
-		<div className={styles.wrapper}>
+		<div className={className}>
 			<ul>
 				{projects.map(({ id, title, created_at }) => {
 					return (
 						<li key={id}>
-							<button className={styles.functions}>|</button>
+							<button className="functions">|</button>
 							{title}
-							<p className={styles.date}>{created_at}</p>
+							<p className="date">{created_at}</p>
 						</li>
 					);
 				})}
@@ -19,3 +19,5 @@ export const Projects = () => {
 		</div>
 	);
 };
+
+export const Projects = styled(ProjectsContainer)``

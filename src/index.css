@@ -1,4 +1,20 @@
-@import "fonts/font-awesome.css";
+@import 'fonts/font-awesome.css';
+
+@font-face {
+	font-family: 'Roboto slab';
+	src: url('/src/fonts/Roboto-slab/RobotoSlab-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+	font-family: 'Roboto slab';
+	src: url('/src/fonts/Roboto-slab/RobotoSlab-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
 
 * {
 	box-sizing: border-box;
@@ -8,17 +24,16 @@
 
 body {
 	margin: 0;
-	font-family: Arial, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
+	font-family:
+		'Roboto slab', BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+		'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: #fff;
+	background-color: #f7f7f7;
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 html,

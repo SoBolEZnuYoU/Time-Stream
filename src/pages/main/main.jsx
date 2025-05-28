@@ -1,5 +1,6 @@
 import { Icon } from '../../components';
 import styled from 'styled-components';
+import { COLOR } from '../../constants';
 
 const MainContainer = ({ className }) => {
 	return (
@@ -8,37 +9,45 @@ const MainContainer = ({ className }) => {
 				<div>
 					<p>00:00</p>
 				</div>
-				<div className="btn-box">
-					<Icon id="fa-play-circle-o" size="52px" onClick={() => {}} />
-					<Icon id="fa-pause-circle-o" size="52px" onClick={() => {}} />
-					<Icon id="fa-stop-circle-o" size="52px" onClick={() => {}} />
+				<div className="timer-controls">
+					{/*выбор таймера или секундомера*/}
+					<div className="btn-box">
+						<Icon id="fa-play-circle-o" size="100px" onClick={() => {}} />
+						<Icon id="fa-pause-circle-o" size="100px" onClick={() => {}} />
+						<Icon id="fa-stop-circle-o" size="100px" onClick={() => {}} />
+					</div>
 				</div>
 			</div>
-			<div className="select-block"></div>
+			<div className="select-block">{/* выбор проекта или задачи */}</div>
 		</div>
 	);
 };
 
 export const Main = styled(MainContainer)`
-	width: 500px;
-	height: 300px;
-	border: 1px solid #9e9e9e;
-	border-radius: 14px;
-	background-color: #c0bfbe;
-	margin: 200px auto 0;
-	padding-inline: 30px;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 
 	& .timer-block {
 		display: flex;
-		justify-content: space-between;
+        justify-content: center;
 		align-items: end;
-		height: 150px;
-		font-size: 110px;
-		line-height: 84px;
+		gap: 30px;
+		height: 45%;
+		width: 100%;
+		font-size: 240px;
+		line-height: 80%;
+		color: ${COLOR.DARK};
+        border-bottom: 2px solid ${COLOR.DARK};
+        padding-bottom: 30px;
+
+		& .btn-box {
+			display: flex;
+			column-gap: 15px;
+		}
 	}
 
-	& .btn-box {
-		display: flex;
-		gap: 5px;
+	& .select-block {
+		height: 55%;
 	}
 `;

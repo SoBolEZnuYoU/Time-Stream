@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router';
-import { Header } from './components';
+import { LeftBar } from './components';
 import { Projects, Tasks, Main } from './pages';
-import styles from './Time-Stream.module.css';
+import styled from 'styled-components';
 
-export const TimeStream = () => (
-	<div className={styles.wrapper}>
-		<Header />
-		<div className={styles.content}>
+const TimeStreamContainer = ({ className }) => (
+	<div className={className}>
+		<LeftBar />
+		<div className="content">
 			<Routes>
 				<Route path="/" element={<Main />} />
 				<Route path="/projects" element={<Projects />} />
@@ -20,3 +20,17 @@ export const TimeStream = () => (
 		</div>
 	</div>
 );
+
+export const TimeStream = styled(TimeStreamContainer)`
+	display: flex;
+	width: 1350px;
+	height: 100vh;
+	margin: 0 auto;
+	box-shadow: 0 0 20px 0 #333;
+
+	& .content {
+		background-color: #fdefdd;
+		height: 100%;
+        width: 100%;
+	}
+`;

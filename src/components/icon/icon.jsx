@@ -1,3 +1,4 @@
+import { COLOR } from '../../constants';
 import styled from 'styled-components';
 
 const IconContainer = ({ className, id, onClick, ...props }) => (
@@ -8,11 +9,16 @@ const IconContainer = ({ className, id, onClick, ...props }) => (
 
 export const Icon = styled(IconContainer)`
 	font-size: ${({ size = '24px' }) => size};
-	line-height: 0px;
 	align-items: center;
-	color: ${({ disabled }) => (disabled ? '#ccc' : '#000')};
+    line-height: 0px;
+	color: inherit;
+
+    i {
+        line-height: 85.72%;
+    }
 
 	&:hover {
 		cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
+        color: ${COLOR.HOVER};
 	}
 `;

@@ -1,13 +1,15 @@
-import styles from './analytics.module.css'
+import styled from 'styled-components';
 
-export const Analytics = () => {
-    return (
-        <div className={styles.wrapper}>
-            <div className={styles.graphics}></div>
-            <div className={styles['select-btn-box']}>
-                <button>Проекты</button>
-                <button>Задачи</button>
-            </div>
-        </div>
-    )
-}
+const AnalyticsContainer = ({ className }) => {
+	return (
+		<div className={className}>
+			<div className="graphics"></div>
+			<div className="select-btn-box">
+				<button>Проекты</button>
+				<button>Задачи</button>
+			</div>
+		</div>
+	);
+};
+
+export const Analytics = styled(AnalyticsContainer)``

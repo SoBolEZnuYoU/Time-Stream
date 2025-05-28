@@ -1,24 +1,26 @@
-import styles from './tasks.module.css';
+import styled from 'styled-components';
 
-export const Tasks = () => {
-    const tasks = []
+const TasksContainer = ({ className }) => {
+	const tasks = [];
 
-    return (
-        <div className={styles.wrapper}>
-            <ul>
-                {tasks.map(({id, text}) => {
-                    return (
-                        <li className={styles.task} key={id}>
-                            {text}
-                            <div className={styles['btn-box']}>
-                                <button>У</button>
-                                <button>Р</button>
-                                <button>К</button>
-                            </div>
-                            </li>
-                    )
-                })}
-            </ul>
-        </div>
-    )
-}
+	return (
+		<div className={className}>
+			<ul>
+				{tasks.map(({ id, text }) => {
+					return (
+						<li className="task" key={id}>
+							{text}
+							<div className="btn-box">
+								<button>У</button>
+								<button>Р</button>
+								<button>К</button>
+							</div>
+						</li>
+					);
+				})}
+			</ul>
+		</div>
+	);
+};
+
+export const Tasks = styled(TasksContainer)``
