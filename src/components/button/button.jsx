@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ButtonContainer = ({ className, children, onClick }) => {
 	return (
-		<button className={className} onClick={onClick}>
+		<button type="button" className={className} onClick={onClick}>
 			{children}
 		</button>
 	);
@@ -12,7 +12,7 @@ const ButtonContainer = ({ className, children, onClick }) => {
 export const Button = styled(ButtonContainer)`
 	width: ${({ width = '150px' }) => width};
 	height: ${({ height = '50px' }) => height};
-	border: 1px solid ${({ style }) => (style === 'light' ? COLOR.LIGHT : COLOR.DARK)};
+	border: 2px solid ${({ style }) => (style === 'light' ? COLOR.LIGHT : COLOR.DARK)};
 	border-radius: 7px;
 	background-color: ${({ style }) =>
 		style === 'filled-dark' ? COLOR.DARK : 'transparent'};
@@ -25,6 +25,6 @@ export const Button = styled(ButtonContainer)`
 	cursor: pointer;
 
 	&:hover {
-		background-color: #816959;
+		background-color: ${({style}) => style === 'filled-dark' || style === 'light' ? '#816959' : COLOR.ORANGE};
 	}
 `;

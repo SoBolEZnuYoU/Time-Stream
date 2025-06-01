@@ -15,7 +15,7 @@ const TimeStreamContainer = ({ className }) => (
 				<Route path="/project-management" element={<div>Управление проектом</div>} />
 				<Route path="/user-settings" element={<div>Настройки пользователя</div>} />
 				<Route path="/authorization" element={<div>Авторизация</div>} />
-				<Route path="*" element={<div>Такой страницы не сузествует</div>}></Route>
+				<Route path="*" element={<div>Такой страницы не существует</div>}></Route>
 			</Routes>
 		</div>
 	</div>

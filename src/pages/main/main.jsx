@@ -1,4 +1,4 @@
-import { Icon } from '../../components';
+import { Button, Icon } from '../../components';
 import styled from 'styled-components';
 import { COLOR } from '../../constants';
 
@@ -18,7 +18,10 @@ const MainContainer = ({ className }) => {
 					</div>
 				</div>
 			</div>
-			<div className="select-block">{/* выбор проекта или задачи */}</div>
+			<div className="select-block">
+                <Button width='300px' style='filled-dark'>Выбрать проект</Button>
+                <Button width='300px'>Выбрать задачу</Button>
+            </div>
 		</div>
 	);
 };
@@ -49,5 +52,10 @@ export const Main = styled(MainContainer)`
 
 	& .select-block {
 		height: 55%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin: 0 auto;
+        padding: 150px;
 	}
 `;

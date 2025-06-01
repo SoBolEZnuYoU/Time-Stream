@@ -11,14 +11,14 @@ export const Icon = styled(IconContainer)`
 	font-size: ${({ size = '24px' }) => size};
 	align-items: center;
     line-height: 0px;
-	color: inherit;
+	color: ${({color = 'inherit'}) => color};
 
     i {
         line-height: 85.72%;
     }
 
 	&:hover {
-		cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
+		cursor: pointer;
         color: ${COLOR.HOVER};
 	}
 `;
