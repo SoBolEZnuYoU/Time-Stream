@@ -7,9 +7,9 @@ const TaskContainer = ({ className, title }) => {
 		<li className={className}>
 			{title}
 			<div className="btn-box">
-				<Icon id="fa-edit" size="26px;" onClick={() => {}} />
-				<Icon id="fa-commenting-o" size="26px;" onClick={() => {}} />
-				<Icon id="fa-trash-o" size="26px;" onClick={() => {}} />
+				<Icon id="fa-edit" size="26px;" hover={COLOR.ORANGE} onClick={() => {}} />
+				<Icon id="fa-commenting-o" size="26px;" hover={COLOR.ORANGE} onClick={() => {}} />
+				<Icon id="fa-trash-o" size="26px;" hover={COLOR.ORANGE} onClick={() => {}} />
 			</div>
 		</li>
 	);
@@ -28,7 +28,7 @@ export const Task = styled(TaskContainer)`
 	&:hover {
 		cursor: pointer;
 		background-color: ${COLOR.HOVER};
-        color: ${COLOR.LIGHT};
+		color: ${COLOR.LIGHT};
 	}
 
 	&:not(:last-child) {

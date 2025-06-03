@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router';
 import { LeftBar } from './components';
-import { Projects, Tasks, Main } from './pages';
+import { Projects, Tasks, Main, Analytics } from './pages';
 import styled from 'styled-components';
+import { COLOR } from './constants';
 
 const TimeStreamContainer = ({ className }) => (
 	<div className={className}>
@@ -11,7 +12,7 @@ const TimeStreamContainer = ({ className }) => (
 				<Route path="/" element={<Main />} />
 				<Route path="/projects" element={<Projects />} />
 				<Route path="/tasks" element={<Tasks />} />
-				<Route path="/analytics" element={<div>Аналитика</div>} />
+				<Route path="/analytics" element={<Analytics />} />
 				<Route path="/project-management" element={<div>Управление проектом</div>} />
 				<Route path="/user-settings" element={<div>Настройки пользователя</div>} />
 				<Route path="/authorization" element={<div>Авторизация</div>} />
@@ -29,7 +30,7 @@ export const TimeStream = styled(TimeStreamContainer)`
 	box-shadow: 0 0 20px 0 #333;
 
 	& .content {
-		background-color: #fdefdd;
+		background-color: ${COLOR.LIGHT};
 		height: 100%;
         width: 100%;
 	}

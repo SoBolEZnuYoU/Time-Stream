@@ -10,15 +10,15 @@ const IconContainer = ({ className, id, onClick, ...props }) => (
 export const Icon = styled(IconContainer)`
 	font-size: ${({ size = '24px' }) => size};
 	align-items: center;
-    line-height: 0px;
-	color: ${({color = 'inherit'}) => color};
+	line-height: 0px;
+	color: ${({ color = 'inherit' }) => color};
 
-    i {
-        line-height: 85.72%;
-    }
+	i {
+		line-height: 85.72%;
+	}
 
 	&:hover {
 		cursor: pointer;
-        color: ${COLOR.HOVER};
+		color: ${({ hover = COLOR.HOVER }) => hover};
 	}
 `;

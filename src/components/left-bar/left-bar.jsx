@@ -10,7 +10,7 @@ const StyledLink = styled(Link)`
     text-align: center;
 	color: ${COLOR.LIGHT};
 	border-bottom: 1px solid ${COLOR.LIGHT};
-    padding: 15px 0;
+    padding: 20px 0;
 
     &:hover {
         background-color: #816959;
@@ -43,7 +43,7 @@ export const LeftBar = styled(LeftBarContainer)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 100px;
+	gap: 93px;
 	width: 400px;
 	height: 100%;
 	padding: 15px 0;
