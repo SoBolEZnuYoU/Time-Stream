@@ -56,6 +56,10 @@ button, input {
     background-color: transparent;
 }
 
-input:focus {
+input, textarea {
+    font-family: inherit;
+}
+
+input, textarea:focus {
     outline: none;
 }

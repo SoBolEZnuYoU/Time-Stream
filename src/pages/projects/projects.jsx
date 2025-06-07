@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 import { Button, Search, Tabs } from '../../components';
 import { Project } from './components';
+import styled from 'styled-components';
 
 const ProjectsContainer = ({ className }) => {
 	const projects = [
@@ -46,12 +47,14 @@ const ProjectsContainer = ({ className }) => {
 		},
 	];
 
+    const navigate = useNavigate()
+
 	return (
 		<div className={className}>
 			<Tabs />
 			<div className="main">
 				<div className="create-search-block">
-					<Button width="250px">Создать проект</Button>
+					<Button width="250px" onClick={() => navigate('/create-project')}>Создать проект</Button>
 					<Search placeholder="Введите название проекта" />
 				</div>
 				<ul className="list">

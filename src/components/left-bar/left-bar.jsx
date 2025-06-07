@@ -25,7 +25,7 @@ const LeftBarContainer = ({ className }) => {
 			<Button
 				type="button"
                 style='light'
-				onClick={() => navigate('/authorization')}
+				onClick={() => navigate('/login')}
 			>
 				Войти
 			</Button>

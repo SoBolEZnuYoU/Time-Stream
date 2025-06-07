@@ -1,2 +1,2 @@
 export * from './activity-table/activity-table'
-export * from './projects/projects'
+export * from './statistics-block/statistics-block'

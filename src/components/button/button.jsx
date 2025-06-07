@@ -21,7 +21,7 @@ export const Button = styled(ButtonContainer)`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 30px;
+	font-size: 26px;
 	cursor: pointer;
 
 	&:hover {

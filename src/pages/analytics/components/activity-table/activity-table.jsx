@@ -35,7 +35,7 @@ const ActivityTableContainer = ({ className }) => {
 };
 
 export const ActivityTable = styled(ActivityTableContainer)`
-	height: 33.33%;
+	height: 25%;
 
 	& table {
 		height: 100%;
