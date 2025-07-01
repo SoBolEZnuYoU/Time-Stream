@@ -1,9 +1,49 @@
+const Task = require("../models/Task");
+
 // add
+function addTask(title) {
+    Task.create(title);
+}
 
 // edit
+async function editTask(id, title) {
+    const newTask = await Task.findByIdAndUpdate(id, title, {
+        returnDocument: "after",
+    });
+
+    return newTask;
+}
 
 // delete
+function deleteTask(id) {
+    return Task.deleteOne({ _id: id });
+}
 
 // get list with search
+async function getTasks(search = "", limit = 20, page = 1) {
+    const [tasks, count] = await Promise.all([
+        Task.find({ title: { $regex: search, $options: "i" } })
+            .limit(limit)
+            .skip((page - 1) * limit)
+            .sort({ createdAt: -1 }),
+        Task.countDocuments({ title: { $regex: search, $options: "i" } }),
+    ]);
+
+    return {
+        tasks,
+        lastPage: Math.ceil(count / limit),
+    };
+}
 
 // get item
+function getTask(id) {
+    return Task.findById(id);
+}
+
+module.exports = {
+    addTask,
+    editTask,
+    deleteTask,
+    getTasks,
+    getTask,
+};

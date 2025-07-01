@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
-const token = require("../helpers/token");
+const { generate } = require("../helpers/token");
 
 async function register(login, password) {
     if (!password) {
@@ -10,11 +10,11 @@ async function register(login, password) {
     const passwordHash = await bcrypt.hash(password, 10);
 
     const user = await User.create({ login, passwordHash });
+    const token = generate({ id: user.id });
 
-    return user;
+    return { user, token };
 }
 
-// login
 async function login(login, password) {
     const user = await User.findOne({ login });
 
@@ -28,12 +28,10 @@ async function login(login, password) {
         throw new Error("Wrong password");
     }
 
-    const token = token({ id: user.id });
+    const token = generate({ id: user.id });
 
     return { token, user };
 }
-
-// logout
 
 module.exports = {
     register,
