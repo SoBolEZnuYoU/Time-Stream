@@ -6,14 +6,12 @@ const ProjectSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        tasks: {
-            type: Object,
-            required: true,
-        },
-        comment: {
-            type: String,
-            default: roles.USER,
-        },
+        tasks: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "ProjectTask",
+            },
+        ],
     },
     { timestamps: true }
 );

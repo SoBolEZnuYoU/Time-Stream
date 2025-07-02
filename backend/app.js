@@ -9,9 +9,21 @@ const {
     getTask,
     getTasks,
 } = require("./controllers/task");
-const { mapUser } = require("./helpers/mapUser");
-const authenticated = require("./middlewares/authenticated");
+const {
+    getProjects,
+    getProject,
+    addProject,
+    editProject,
+    deleteProject,
+} = require("./controllers/project");
+const mapUser = require("./helpers/mapUser");
 const mapTask = require("./helpers/mapTask");
+const mapProject = require("./helpers/mapProject");
+const authenticated = require("./middlewares/authenticated");
+const {
+    addProjectTask,
+    deleteProjectTask,
+} = require("./controllers/projectTask");
 
 const port = 3001;
 const app = express();
@@ -87,6 +99,55 @@ app.delete("/tasks/:id", async (req, res) => {
 });
 
 app.use(authenticated);
+
+app.get("/projects", async (req, res) => {
+    const { projects, lastPage } = await getProjects(
+        req.query.search,
+        req.query.limit,
+        req.query.page
+    );
+
+    res.send({ data: { lastPage, projects: projects.map(mapProject) } });
+});
+
+app.get("/projects/:id", async (req, res) => {
+    const project = await getProject(req.params.id);
+
+    res.send({ data: mapProject(project) });
+});
+
+app.post("/projects", async (req, res) => {
+    const newProject = await addProject(req.body.title);
+
+    res.send({ data: mapProject(newProject) });
+});
+
+app.patch("/projects/:id", async (req, res) => {
+    const updateProject = await editProject(req.params.id, req.body.title);
+
+    res.send({ data: mapProject(updateProject) });
+});
+
+app.delete("/projects/:id", async (req, res) => {
+    await deleteProject(req.params.id);
+
+    res.send({ error: null });
+});
+
+app.post("/projects/:id/tasks", async (req, res) => {
+    const newProjectTask = await addProjectTask(req.params.id, {
+        title: req.body.title,
+        status: false,
+    });
+
+    res.send({ data: newProjectTask });
+});
+
+app.delete("/projects/:projectId/tasks/:taskId", async (req, res) => {
+    await deleteProjectTask(req.params.projectId, req.params.taskId);
+
+    res.send({ error: null });
+});
 
 mongoose
     .connect(
