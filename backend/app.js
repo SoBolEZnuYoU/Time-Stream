@@ -6,7 +6,7 @@ const routes = require("./routes");
 const port = 3001;
 const app = express();
 
-app.use(cookieParser);
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api", routes);

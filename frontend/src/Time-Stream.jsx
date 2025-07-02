@@ -12,25 +12,28 @@ import {
 import styled from 'styled-components';
 import { COLOR } from './constants';
 
-const TimeStreamContainer = ({ className }) => (
-	<div className={className}>
-		<LeftBar />
-		<div className="content">
-			<Routes>
-				<Route path="/" element={<Main />} />
-				<Route path="/projects" element={<Projects />} />
-				<Route path="/create-project" element={<CreateProject />} />
-				<Route path="/tasks" element={<Tasks />} />
-				<Route path="/analytics" element={<Analytics />} />
-				<Route path="/project-management" element={<div>Управление проектом</div>} />
-				<Route path="/user-settings" element={<div>Настройки пользователя</div>} />
-				<Route path="/login" element={<Authorization />} />
-				<Route path="/register" element={<Registration />} />
-				<Route path="*" element={<div>Такой страницы не существует</div>}></Route>
-			</Routes>
+const TimeStreamContainer = ({ className }) => {
+
+	return (
+		<div className={className}>
+			<LeftBar />
+			<div className="content">
+				<Routes>
+					<Route path="/" element={<Main />} />
+					<Route path="/projects" element={<Projects />} />
+					<Route path="/create-project" element={<CreateProject />} />
+					<Route path="/tasks" element={<Tasks />} />
+					<Route path="/analytics" element={<Analytics />} />
+					<Route path="/project-management" element={<div>Управление проектом</div>} />
+					<Route path="/user-settings" element={<div>Настройки пользователя</div>} />
+					<Route path="/login" element={<Authorization />} />
+					<Route path="/register" element={<Registration />} />
+					<Route path="*" element={<div>Такой страницы не существует</div>}></Route>
+				</Routes>
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 export const TimeStream = styled(TimeStreamContainer)`
 	display: flex;

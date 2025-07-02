@@ -1,1 +1,1 @@
-export * from './project.reducer'
+export * from './project-reducer'

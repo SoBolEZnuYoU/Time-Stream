@@ -1,0 +1,3 @@
+export const ACTION_TYPE = {
+	SET_PROJECT_DATA: 'SET_PROJECT_DATA',
+};
