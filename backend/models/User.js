@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const roles = require("../constants/roles");
+const role = require("../constants/role");
 
 const UserSchema = mongoose.Schema({
     login: {
@@ -7,13 +7,13 @@ const UserSchema = mongoose.Schema({
         required: true,
         unique: true,
     },
-    password: {
+    passwordHash: {
         type: String,
         required: true,
     },
     role: {
         type: Number,
-        default: roles.USER,
+        default: role.USER,
     },
 });
 

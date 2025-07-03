@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ButtonContainer = ({ className, children, onClick }) => {
 	return (
-		<button type="button" className={className} onClick={onClick}>
+		<button className={className} onClick={onClick}>
 			{children}
 		</button>
 	);
@@ -25,6 +25,7 @@ export const Button = styled(ButtonContainer)`
 	cursor: pointer;
 
 	&:hover {
-		background-color: ${({style}) => style === 'filled-dark' || style === 'light' ? '#816959' : COLOR.ORANGE};
+		background-color: ${({ style }) =>
+			style === 'filled-dark' || style === 'light' ? '#816959' : COLOR.ORANGE};
 	}
 `;

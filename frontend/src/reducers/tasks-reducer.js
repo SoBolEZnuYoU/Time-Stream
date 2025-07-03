@@ -1,8 +1,8 @@
 import { ACTION_TYPE } from '../actions';
 
-const initialTaskState = {};
+const initialTasksState = {};
 
-export const taskReducer = (state = initialTaskState, action) => {
+export const tasksReducer = (state = initialTasksState, action) => {
 	switch (action.type) {
 		default:
 			return state;
