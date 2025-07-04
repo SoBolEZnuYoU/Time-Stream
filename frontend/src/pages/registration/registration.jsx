@@ -33,7 +33,6 @@ const RegistrationContainer = ({ className }) => {
 
 	const {
 		register,
-		reset,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({

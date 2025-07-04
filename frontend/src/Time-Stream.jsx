@@ -1,19 +1,19 @@
 import { Routes, Route } from 'react-router';
 import { LeftBar } from './components';
 import {
-	Projects,
-	Tasks,
-	Main,
 	Analytics,
-	CreateProject,
 	Authorization,
+	CreateProject,
+	Main,
+	Projects,
 	Registration,
+	Tasks,
+	UserSettings,
 } from './pages';
 import styled from 'styled-components';
 import { COLOR } from './constants';
 
 const TimeStreamContainer = ({ className }) => {
-
 	return (
 		<div className={className}>
 			<LeftBar />
@@ -25,7 +25,7 @@ const TimeStreamContainer = ({ className }) => {
 					<Route path="/tasks" element={<Tasks />} />
 					<Route path="/analytics" element={<Analytics />} />
 					<Route path="/project-management" element={<div>Управление проектом</div>} />
-					<Route path="/user-settings" element={<div>Настройки пользователя</div>} />
+					<Route path="/user-settings" element={<UserSettings />} />
 					<Route path="/login" element={<Authorization />} />
 					<Route path="/register" element={<Registration />} />
 					<Route path="*" element={<div>Такой страницы не существует</div>}></Route>

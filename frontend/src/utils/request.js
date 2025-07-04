@@ -1,5 +1,5 @@
-export function request(url, method, data) {
-	return fetch(url, {
+export async function request(url, method, data) {
+	return await fetch(url, {
 		headers: {
 			'content-type': 'application/json',
 		},

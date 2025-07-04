@@ -31,7 +31,6 @@ const AuthorizationContainer = ({ className }) => {
 
 	const {
 		register,
-		reset,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
@@ -44,8 +43,8 @@ const AuthorizationContainer = ({ className }) => {
 
 	const [serverError, setServerError] = useState(null);
 
-	const onSubmit = ({ login, password }) => {
-		request('/api/login', 'POST', { login, password }).then(({ error, user }) => {
+	const onSubmit = async ({ login, password }) => {
+		await request('/api/login', 'POST', { login, password }).then(({ error, user }) => {
 			if (error) {
 				setServerError(`Ошибка запроса: ${error}`);
 				return;
