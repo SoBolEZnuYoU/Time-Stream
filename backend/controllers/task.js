@@ -2,7 +2,9 @@ const Task = require("../models/Task");
 
 // add
 function addTask(title) {
-    Task.create(title);
+    const newTask = Task.create({ title });
+
+    return newTask;
 }
 
 // edit

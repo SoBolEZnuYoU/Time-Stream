@@ -52,7 +52,7 @@ export const LeftBar = styled(LeftBarContainer)`
 	flex-direction: column;
 	align-items: center;
 	gap: 93px;
-	width: 400px;
+	width: 250px;
 	height: 100%;
 	padding: 15px 0;
 	background-color: #6d554d;

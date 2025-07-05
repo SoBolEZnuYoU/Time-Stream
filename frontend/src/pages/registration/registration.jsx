@@ -7,6 +7,7 @@ import { request } from '../../utils';
 import { setUser } from '../../actions';
 import { H2, Input, Button, ErrorMessage } from '../../components';
 import { COLOR } from '../../constants';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 const authFormSchema = yup.object().shape({
@@ -30,6 +31,7 @@ const authFormSchema = yup.object().shape({
 
 const RegistrationContainer = ({ className }) => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const {
 		register,
@@ -46,18 +48,17 @@ const RegistrationContainer = ({ className }) => {
 
 	const [serverError, setServerError] = useState(null);
 
-	const onSubmit = async ({ login, password }) => {
-		await request('/api/register', 'POST', { login, password }).then(
-			({ error, user }) => {
-				if (error) {
-					setServerError(`Ошибка запроса: ${error}`);
-					return;
-				}
+	const onSubmit = ({ login, password }) => {
+		request('/api/register', 'POST', { login, password }).then(({ error, user }) => {
+			if (error) {
+				setServerError(`Ошибка запроса: ${error}`);
+				return;
+			}
 
-				dispatch(setUser(user));
-				sessionStorage.setItem('userData', JSON.stringify(user));
-			},
-		);
+			dispatch(setUser(user));
+			sessionStorage.setItem('userData', JSON.stringify(user));
+			navigate('/');
+		});
 	};
 
 	const formError =

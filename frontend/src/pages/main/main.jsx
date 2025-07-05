@@ -1,8 +1,13 @@
 import { Button, Icon } from '../../components';
 import styled from 'styled-components';
-import { COLOR } from '../../constants';
+import { COLOR, ROLE } from '../../constants';
+import { useSelector } from 'react-redux';
+import { selectUserRole } from '../../selectors';
 
 const MainContainer = ({ className }) => {
+	const roleId = useSelector(selectUserRole);
+
+	const isUser = roleId === ROLE.USER;
 	return (
 		<div className={className}>
 			<div className="timer-block">
@@ -19,9 +24,13 @@ const MainContainer = ({ className }) => {
 				</div>
 			</div>
 			<div className="select-block">
-                <Button width='300px' style='filled-dark'>Выбрать проект</Button>
-                <Button width='300px'>Выбрать задачу</Button>
-            </div>
+				{isUser && (
+					<Button width="300px" style="filled-dark">
+						Выбрать проект
+					</Button>
+				)}
+				<Button width="300px">Выбрать задачу</Button>
+			</div>
 		</div>
 	);
 };
@@ -33,7 +42,7 @@ export const Main = styled(MainContainer)`
 
 	& .timer-block {
 		display: flex;
-        justify-content: center;
+		justify-content: center;
 		align-items: end;
 		gap: 30px;
 		height: 45%;
@@ -41,8 +50,8 @@ export const Main = styled(MainContainer)`
 		font-size: 240px;
 		line-height: 80%;
 		color: ${COLOR.DARK};
-        border-bottom: 2px solid ${COLOR.DARK};
-        padding-bottom: 30px;
+		border-bottom: 2px solid ${COLOR.DARK};
+		padding-bottom: 30px;
 
 		& .btn-box {
 			display: flex;
@@ -52,10 +61,10 @@ export const Main = styled(MainContainer)`
 
 	& .select-block {
 		height: 55%;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        margin: 0 auto;
-        padding: 150px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		margin: 0 auto;
+		padding: 150px;
 	}
 `;

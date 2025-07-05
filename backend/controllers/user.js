@@ -22,7 +22,7 @@ async function login(login, password) {
         throw new Error("user not found");
     }
 
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    const isPasswordMatch = await bcrypt.compare(password, user.passwordHash);
 
     if (!isPasswordMatch) {
         throw new Error("Wrong password");

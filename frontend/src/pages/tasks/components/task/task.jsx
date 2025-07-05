@@ -1,16 +1,17 @@
 import styled from 'styled-components';
-import { Icon } from '../../../../components';
 import { COLOR } from '../../../../constants';
 
-const TaskContainer = ({ className, title }) => {
+const TaskContainer = ({ className, title, createdAt }) => {
+	const date = new Date(createdAt).toLocaleString('ru', {
+		year: 'numeric',
+		month: 'numeric',
+		day: 'numeric',
+	});
+
 	return (
 		<li className={className}>
-			{title}
-			<div className="btn-box">
-				<Icon id="fa-edit" size="26px;" hover={COLOR.ORANGE} onClick={() => {}} />
-				<Icon id="fa-commenting-o" size="26px;" hover={COLOR.ORANGE} onClick={() => {}} />
-				<Icon id="fa-trash-o" size="26px;" hover={COLOR.ORANGE} onClick={() => {}} />
-			</div>
+			<p className="title">{title}</p>
+			<p className="createdAt">{date}</p>
 		</li>
 	);
 };
@@ -19,11 +20,21 @@ export const Task = styled(TaskContainer)`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border: 2px solid ${COLOR.DARK};
-	border-radius: 7px;
+	border-bottom: 1px solid ${COLOR.DARK};
 	font-size: 20px;
 	color: ${COLOR.DARK};
 	padding: 5px 10px;
+
+	& .title {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		width: 865px;
+	}
+
+	& .createdAt {
+		width: 100px;
+	}
 
 	&:hover {
 		cursor: pointer;
@@ -33,10 +44,5 @@ export const Task = styled(TaskContainer)`
 
 	&:not(:last-child) {
 		margin-bottom: 10px;
-	}
-
-	& .btn-box {
-		display: flex;
-		gap: 7px;
 	}
 `;
