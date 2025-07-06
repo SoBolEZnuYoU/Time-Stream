@@ -13,7 +13,7 @@ const modalFormSchema = yup.object().shape({
 	title: yup.string().max(300, 'Максимальная длина задачи - 300 символов'),
 });
 
-const ModalContainer = ({ className }) => {
+const ModalContainer = ({ className, refreshFlag, setRefreshFlag }) => {
 	const {
 		register,
 		handleSubmit,
@@ -31,6 +31,7 @@ const ModalContainer = ({ className }) => {
 		request('/api/tasks', 'POST', { title });
 
 		dispatch(closeModal);
+		setRefreshFlag(!refreshFlag);
 	};
 
 	const formError = errors?.title?.message;

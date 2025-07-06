@@ -1,5 +1,6 @@
-import styled from 'styled-components';
 import { COLOR } from '../../../../constants';
+import styled from 'styled-components';
+import { OpenedTask } from './components/opened-task/opened-task';
 
 const TaskContainer = ({ className, title, createdAt }) => {
 	const date = new Date(createdAt).toLocaleString('ru', {
@@ -9,10 +10,13 @@ const TaskContainer = ({ className, title, createdAt }) => {
 	});
 
 	return (
-		<li className={className}>
-			<p className="title">{title}</p>
-			<p className="createdAt">{date}</p>
-		</li>
+		<>
+			<li className={className}>
+				<p className="title">{title}</p>
+				<p className="createdAt">{date}</p>
+			</li>
+			<OpenedTask text={title} />
+		</>
 	);
 };
 
@@ -40,6 +44,7 @@ export const Task = styled(TaskContainer)`
 		cursor: pointer;
 		background-color: ${COLOR.HOVER};
 		color: ${COLOR.LIGHT};
+		border-radius: 14px;
 	}
 
 	&:not(:last-child) {
