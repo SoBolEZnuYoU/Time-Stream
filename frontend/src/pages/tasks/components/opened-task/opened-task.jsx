@@ -1,16 +1,20 @@
 import styled from 'styled-components';
-import { Icon } from '../../../../../../components';
-import { COLOR } from '../../../../../../constants';
+import { Icon } from '../../../../components';
+import { COLOR } from '../../../../constants';
+import { useDispatch } from 'react-redux';
+import { closeTask } from '../../../../actions';
 
 const OpenedTaskContainer = ({ className, text }) => {
+	const dispatch = useDispatch();
+
 	return (
 		<div className={className}>
 			<div className="task">
 				<div className="header">
-					<Icon id="fa-arrow-left" size='30px' />
-					<div className='align-right'>
-					    <Icon id="fa-edit" size='30px' y='3px' />
-    					<Icon id="fa-trash-o" size='30px'/>
+					<Icon id="fa-arrow-left" size="30px" onClick={() => dispatch(closeTask)} />
+					<div className="align-right">
+						<Icon id="fa-edit" size="30px" y="3px" />
+						<Icon id="fa-trash-o" size="30px" />
 					</div>
 				</div>
 				<p>{text}</p>
@@ -41,15 +45,15 @@ export const OpenedTask = styled(OpenedTaskContainer)`
 		padding: 15px 20px;
 		font-size: 24px;
 
-        & .header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
+		& .header {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 20px;
 
-            & .align-right {
-                display: flex;
-                gap: 10px;
-            }
-        }
+			& .align-right {
+				display: flex;
+				gap: 10px;
+			}
+		}
 	}
 `;

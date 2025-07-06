@@ -1,1 +1,2 @@
-export * from './task/task'
+export * from './opened-task/opened-task';
+export * from './task/task';

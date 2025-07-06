@@ -22,7 +22,7 @@ function deleteTask(id) {
 }
 
 // get list with search
-async function getTasks(search = "", limit = 20, page = 1) {
+async function getTasks(search = "", limit = 25, page = 1) {
     const [tasks, count] = await Promise.all([
         Task.find({ title: { $regex: search, $options: "i" } })
             .limit(limit)
