@@ -2,7 +2,9 @@ import { ACTION_TYPE } from '../actions';
 
 const initialTaskState = {
 	isOpen: false,
-	text: '',
+	title: '',
+	id: '',
+	createdAt: '',
 };
 
 export const taskReducer = (state = initialTaskState, action) => {
@@ -17,10 +19,10 @@ export const taskReducer = (state = initialTaskState, action) => {
 				...state,
 				isOpen: false,
 			};
-		case ACTION_TYPE.SET_TASK_TEXT:
+		case ACTION_TYPE.SET_TASK_DATA:
 			return {
 				...state,
-				text: action.payload,
+				...action.payload,
 			};
 		default:
 			return state;

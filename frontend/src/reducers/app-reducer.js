@@ -1,7 +1,13 @@
 import { ACTION_TYPE } from '../actions';
 
 const initialAppState = {
-	modalIsOpen: false,
+	modal: {
+		isOpen: false,
+		question: '',
+		text: '',
+		onConfirm: () => {},
+		onCancel: () => {},
+	},
 };
 
 export const appReducer = (state = initialAppState, action) => {
@@ -9,12 +15,15 @@ export const appReducer = (state = initialAppState, action) => {
 		case ACTION_TYPE.OPEN_MODAL:
 			return {
 				...state,
-				modalIsOpen: true,
+				modal: {
+					...state.modal,
+					...action.payload,
+					isOpen: true,
+				},
 			};
 		case ACTION_TYPE.CLOSE_MODAL:
 			return {
-				...state,
-				modalIsOpen: false,
+				...initialAppState,
 			};
 		default:
 			return state;

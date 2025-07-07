@@ -1,4 +1,4 @@
-import { COLOR } from '../../../../constants';
+import { COLOR } from '../../../../../../constants';
 import styled from 'styled-components';
 
 const TaskContainer = ({ className, id, title, createdAt }) => {
@@ -7,6 +7,7 @@ const TaskContainer = ({ className, id, title, createdAt }) => {
 		month: 'numeric',
 		day: 'numeric',
 	});
+
 	return (
 		<>
 			<li className={className}>
@@ -23,7 +24,7 @@ export const Task = styled(TaskContainer)`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	font-size: 20px;
+	font-size: 22px;
 	color: ${COLOR.DARK};
 	border-bottom: 1px solid ${COLOR.DARK};
 
@@ -31,13 +32,13 @@ export const Task = styled(TaskContainer)`
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		width: 865px;
+		width: 850px;
 		padding: 5px 0 5px 15px;
 	}
 
 	& .createdAt {
 		width: 100px;
-		margin-right: 5px;
+		margin-right: 15px;
 	}
 
 	&:hover {

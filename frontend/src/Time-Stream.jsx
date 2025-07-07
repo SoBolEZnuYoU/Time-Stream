@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router';
-import { LeftBar } from './components';
+import { LeftBar, Modal } from './components';
 import {
 	Analytics,
 	Authorization,
@@ -31,6 +31,7 @@ const TimeStreamContainer = ({ className }) => {
 					<Route path="*" element={<div>Такой страницы не существует</div>}></Route>
 				</Routes>
 			</div>
+			<Modal />
 		</div>
 	);
 };

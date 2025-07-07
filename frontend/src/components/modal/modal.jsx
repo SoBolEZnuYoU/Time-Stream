@@ -5,12 +5,13 @@ import { request } from '../../utils';
 import styled from 'styled-components';
 import { COLOR } from '../../constants';
 import { Button } from '../button/button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../actions';
 import { ErrorMessage } from '../error-message/error-message';
+import { selectModalState } from '../../selectors';
 
 const modalFormSchema = yup.object().shape({
-	title: yup.string().max(300, 'Максимальная длина задачи - 300 символов'),
+	title: yup.string().max(1500, 'Максимальная длина задачи - 1500 символов'),
 });
 
 const ModalContainer = ({ className, refreshFlag, setRefreshFlag }) => {
@@ -25,6 +26,8 @@ const ModalContainer = ({ className, refreshFlag, setRefreshFlag }) => {
 		resolver: yupResolver(modalFormSchema),
 	});
 
+	const modal = useSelector(selectModalState);
+
 	const dispatch = useDispatch();
 
 	const onSubmit = ({ title }) => {
@@ -35,6 +38,10 @@ const ModalContainer = ({ className, refreshFlag, setRefreshFlag }) => {
 	};
 
 	const formError = errors?.title?.message;
+
+	if (!modal.isOpen) {
+		return null;
+	}
 
 	return (
 		<div className={className}>
