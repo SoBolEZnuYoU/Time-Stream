@@ -24,6 +24,8 @@ export const taskReducer = (state = initialTaskState, action) => {
 				...state,
 				...action.payload,
 			};
+		case ACTION_TYPE.RESET_CURRENT_TASK:
+			return initialTaskState;
 		default:
 			return state;
 	}

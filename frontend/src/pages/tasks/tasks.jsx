@@ -1,26 +1,24 @@
-import { Modal, Tabs } from '../../components';
+import { Tabs } from '../../components';
 import { CreateSearchBlock, OpenedTask, TasksList } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTaskIsOpen, selectTasks } from '../../selectors';
-import { loadTaskAsync, openModal, openTask, setTasks } from '../../actions';
-import { useEffect, useState } from 'react';
+import { loadTaskAsync, openInputModal, openTask, setTasks } from '../../actions';
+import { useEffect } from 'react';
 import { request } from '../../utils';
 import styled from 'styled-components';
 
 const TasksContainer = ({ className }) => {
 	const dispatch = useDispatch();
-	const tasks = useSelector(selectTasks);
+	const tasks = useSelector(selectTasks).tasks;
 	const taskIsOpen = useSelector(selectTaskIsOpen);
-
-	const [refreshTasks, setRefreshTasks] = useState(false);
+	const refreshFlag = useSelector(selectTasks).refreshFlag;
 
 	useEffect(() => {
 		request('/api/tasks', 'GET').then(({ data }) => dispatch(setTasks(data.tasks)));
-	}, [dispatch, refreshTasks]);
+	}, [dispatch, refreshFlag]);
 
 	const onCreateTask = () => {
-		dispatch(openModal);
-		setRefreshTasks(!refreshTasks);
+		dispatch(openInputModal);
 	};
 
 	const onOpenTask = ({ target }) => {
@@ -37,9 +35,7 @@ const TasksContainer = ({ className }) => {
 				<CreateSearchBlock onClick={onCreateTask} />
 				<TasksList tasks={tasks} onClick={onOpenTask} />
 			</div>
-			{taskIsOpen && (
-				<OpenedTask refreshTasks={refreshTasks} setRefreshTasks={setRefreshTasks} />
-			)}
+			{taskIsOpen && <OpenedTask />}
 		</div>
 	);
 };

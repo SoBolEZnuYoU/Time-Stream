@@ -9,9 +9,13 @@ function addTask(title) {
 
 // edit
 async function editTask(id, title) {
-    const newTask = await Task.findByIdAndUpdate(id, title, {
-        returnDocument: "after",
-    });
+    const newTask = await Task.findByIdAndUpdate(
+        id,
+        { title },
+        {
+            returnDocument: "after",
+        }
+    );
 
     return newTask;
 }

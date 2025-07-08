@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router';
-import { LeftBar, Modal } from './components';
+import { InputModal, LeftBar } from './components';
 import {
 	Analytics,
 	Authorization,
@@ -12,8 +12,11 @@ import {
 } from './pages';
 import styled from 'styled-components';
 import { COLOR } from './constants';
+import { useSelector } from 'react-redux';
+import { selectModalState } from './selectors';
 
 const TimeStreamContainer = ({ className }) => {
+	const inputModalIsOpen = useSelector(selectModalState).isOpen;
 	return (
 		<div className={className}>
 			<LeftBar />
@@ -31,7 +34,7 @@ const TimeStreamContainer = ({ className }) => {
 					<Route path="*" element={<div>Такой страницы не существует</div>}></Route>
 				</Routes>
 			</div>
-			<Modal />
+			{inputModalIsOpen && <InputModal />}
 		</div>
 	);
 };

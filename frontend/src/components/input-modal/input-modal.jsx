@@ -6,42 +6,49 @@ import styled from 'styled-components';
 import { COLOR } from '../../constants';
 import { Button } from '../button/button';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModal } from '../../actions';
+import { closeModal, refreshTasks, resetCurrentTask } from '../../actions';
 import { ErrorMessage } from '../error-message/error-message';
-import { selectModalState } from '../../selectors';
+import { selectCurrentTask } from '../../selectors';
 
 const modalFormSchema = yup.object().shape({
 	title: yup.string().max(1500, 'Максимальная длина задачи - 1500 символов'),
 });
 
-const ModalContainer = ({ className, refreshFlag, setRefreshFlag }) => {
+const InputModalContainer = ({ className }) => {
+	const currentTask = useSelector(selectCurrentTask);
 	const {
 		register,
+		reset,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			title: '',
+			title: currentTask.title,
 		},
 		resolver: yupResolver(modalFormSchema),
 	});
 
-	const modal = useSelector(selectModalState);
-
 	const dispatch = useDispatch();
 
 	const onSubmit = ({ title }) => {
-		request('/api/tasks', 'POST', { title });
+		if (currentTask.title) {
+			request(`/api/tasks/${currentTask.id}`, 'PATCH', { title });
+		} else {
+			request('/api/tasks', 'POST', { title });
+		}
 
+		reset();
 		dispatch(closeModal);
-		setRefreshFlag(!refreshFlag);
+		dispatch(resetCurrentTask);
+		dispatch(refreshTasks);
+	};
+
+	const onCancel = () => {
+		dispatch(closeModal);
+		dispatch(resetCurrentTask);
 	};
 
 	const formError = errors?.title?.message;
-
-	if (!modal.isOpen) {
-		return null;
-	}
 
 	return (
 		<div className={className}>
@@ -57,7 +64,7 @@ const ModalContainer = ({ className, refreshFlag, setRefreshFlag }) => {
 						<Button type="submit" width="200px" style="filled-dark">
 							Применить
 						</Button>
-						<Button width="200px" onClick={() => dispatch(closeModal)}>
+						<Button width="200px" onClick={onCancel}>
 							Отмена
 						</Button>
 					</div>
@@ -67,7 +74,7 @@ const ModalContainer = ({ className, refreshFlag, setRefreshFlag }) => {
 	);
 };
 
-export const Modal = styled(ModalContainer)`
+export const InputModal = styled(InputModalContainer)`
 	position: fixed;
 	left: 0;
 	top: 0;

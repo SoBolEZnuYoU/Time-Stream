@@ -1,1 +1,1 @@
-export const selectTasks = ({ tasks }) => tasks.tasks;
+export const selectTasks = ({ tasks }) => tasks;

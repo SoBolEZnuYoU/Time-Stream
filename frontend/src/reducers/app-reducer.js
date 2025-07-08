@@ -1,7 +1,7 @@
 import { ACTION_TYPE } from '../actions';
 
 const initialAppState = {
-	modal: {
+	inputModal: {
 		isOpen: false,
 		question: '',
 		text: '',
@@ -12,10 +12,10 @@ const initialAppState = {
 
 export const appReducer = (state = initialAppState, action) => {
 	switch (action.type) {
-		case ACTION_TYPE.OPEN_MODAL:
+		case ACTION_TYPE.OPEN_INPUT_MODAL:
 			return {
 				...state,
-				modal: {
+				inputModal: {
 					...state.modal,
 					...action.payload,
 					isOpen: true,

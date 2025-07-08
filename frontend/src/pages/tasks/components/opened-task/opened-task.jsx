@@ -1,35 +1,47 @@
 import { Icon } from '../../../../components';
 import { COLOR } from '../../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeTask, openModal, removeTaskAsync } from '../../../../actions';
+import {
+	closeTask,
+	openInputModal,
+	removeTaskAsync,
+	resetCurrentTask,
+	refreshTasks,
+} from '../../../../actions';
 import { request } from '../../../../utils';
 import { selectCurrentTask } from '../../../../selectors';
 import styled from 'styled-components';
 
-const OpenedTaskContainer = ({ className, refreshTasks, setRefreshTasks }) => {
+const OpenedTaskContainer = ({ className }) => {
 	const dispatch = useDispatch();
 	const task = useSelector(selectCurrentTask);
 
-	const onDeleteTask = (id) => {
-		dispatch(removeTaskAsync(request, id)).then(() => {
+	const onDeleteTask = () => {
+		dispatch(removeTaskAsync(request, task.id)).then(() => {
+			dispatch(refreshTasks);
+			dispatch(resetCurrentTask);
 			dispatch(closeTask);
-			setRefreshTasks(!refreshTasks);
 		});
 	};
 
 	const onOpenEditModal = () => {
 		dispatch(closeTask);
-		dispatch(openModal);
+		dispatch(openInputModal);
+	};
+
+	const onBackClick = () => {
+		dispatch(closeTask);
+		dispatch(resetCurrentTask);
 	};
 
 	return (
 		<div className={className}>
 			<div className="task">
 				<div className="header">
-					<Icon id="fa-arrow-left" size="30px" onClick={() => dispatch(closeTask)} />
+					<Icon id="fa-arrow-left" size="30px" onClick={onBackClick} />
 					<div className="align-right">
 						<Icon id="fa-edit" size="30px" y="3px" onClick={onOpenEditModal} />
-						<Icon id="fa-trash-o" size="30px" onClick={() => onDeleteTask(task.id)} />
+						<Icon id="fa-trash-o" size="30px" onClick={onDeleteTask} />
 					</div>
 				</div>
 				<p>{task.title}</p>

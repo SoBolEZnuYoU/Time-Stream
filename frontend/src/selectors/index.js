@@ -1,6 +1,5 @@
 export * from './select-current-task';
-export * from './select-modal-is-open';
-export * from './select-modal-state';
+export * from './select-input-modal-state';
 export * from './select-tasks';
 export * from './select-task-is-open';
 export * from './select-user-login';
