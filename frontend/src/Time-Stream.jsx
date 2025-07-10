@@ -3,20 +3,41 @@ import { InputModal, LeftBar } from './components';
 import {
 	Analytics,
 	Authorization,
-	CreateProject,
+	Project,
 	Main,
 	Projects,
 	Registration,
 	Tasks,
 	UserSettings,
 } from './pages';
-import styled from 'styled-components';
 import { COLOR } from './constants';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectModalState } from './selectors';
+import styled from 'styled-components';
+import { useLayoutEffect } from 'react';
+import { setUser } from './actions';
 
 const TimeStreamContainer = ({ className }) => {
 	const inputModalIsOpen = useSelector(selectModalState).isOpen;
+	const dispatch = useDispatch();
+
+	useLayoutEffect(() => {
+		const currentUserDataJSON = sessionStorage.getItem('userData');
+
+		if (!currentUserDataJSON) {
+			return;
+		}
+
+		const currentUserData = JSON.parse(currentUserDataJSON);
+
+		dispatch(
+			setUser({
+				...currentUserData,
+				roleId: Number(currentUserData.roleId),
+			}),
+		);
+	}, [dispatch]);
+
 	return (
 		<div className={className}>
 			<LeftBar />
@@ -24,7 +45,7 @@ const TimeStreamContainer = ({ className }) => {
 				<Routes>
 					<Route path="/" element={<Main />} />
 					<Route path="/projects" element={<Projects />} />
-					<Route path="/create-project" element={<CreateProject />} />
+					<Route path="/project/:id" element={<Project />} />
 					<Route path="/tasks" element={<Tasks />} />
 					<Route path="/analytics" element={<Analytics />} />
 					<Route path="/project-management" element={<div>Управление проектом</div>} />

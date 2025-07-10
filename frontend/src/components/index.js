@@ -1,4 +1,5 @@
 export * from './button/button';
+export * from './create-search-block/create-search-block';
 export * from './error-message/error-message';
 export * from './h2/h2';
 export * from './icon/icon';

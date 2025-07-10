@@ -2,7 +2,7 @@ const Project = require("../models/Project");
 
 // add
 async function addProject(title) {
-    const newProject = await Project.create(title);
+    const newProject = await Project.create({title});
 
     await newProject.populate("tasks");
 

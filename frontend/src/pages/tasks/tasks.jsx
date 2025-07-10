@@ -1,5 +1,5 @@
-import { Tabs } from '../../components';
-import { CreateSearchBlock, OpenedTask, TasksList } from './components';
+import { Tabs, CreateSearchBlock } from '../../components';
+import { OpenedTask, TasksList } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTaskIsOpen, selectTasks } from '../../selectors';
 import { loadTaskAsync, openInputModal, openTask, setTasks } from '../../actions';
@@ -32,7 +32,7 @@ const TasksContainer = ({ className }) => {
 		<div className={className}>
 			<Tabs />
 			<div className="main">
-				<CreateSearchBlock onClick={onCreateTask} />
+				<CreateSearchBlock onClick={onCreateTask} type="tasks" />
 				<TasksList tasks={tasks} onClick={onOpenTask} />
 			</div>
 			{taskIsOpen && <OpenedTask />}

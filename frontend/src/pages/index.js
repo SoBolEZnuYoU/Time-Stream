@@ -1,6 +1,6 @@
 export * from './analytics/analytics';
 export * from './authorization/authorization';
-export * from './create-project/createProject';
+export * from './project/project';
 export * from './main/main';
 export * from './projects/projects';
 export * from './registration/registration';

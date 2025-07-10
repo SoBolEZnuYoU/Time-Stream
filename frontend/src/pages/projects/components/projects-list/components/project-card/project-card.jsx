@@ -1,10 +1,12 @@
-import { Icon } from '../../../../components';
-import { COLOR } from '../../../../constants';
+import { useNavigate } from 'react-router';
+import { Icon } from '../../../../../../components';
+import { COLOR } from '../../../../../../constants';
 import styled from 'styled-components';
 
-const ProjectContainer = ({ className, title, created_at }) => {
+const ProjectCardContainer = ({ className, id, title, created_at }) => {
+	const navigate = useNavigate();
 	return (
-		<li className={className}>
+		<li className={className} onClick={() => navigate(`/project/${id}`)}>
 			<Icon id="fa-folder" size="150px" color={COLOR.ORANGE} />
 			<div className="text-block">
 				<p className="title">{title}</p>
@@ -14,7 +16,7 @@ const ProjectContainer = ({ className, title, created_at }) => {
 	);
 };
 
-export const Project = styled(ProjectContainer)`
+export const ProjectCard = styled(ProjectCardContainer)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -27,9 +29,9 @@ export const Project = styled(ProjectContainer)`
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-        row-gap: 7px;
+		row-gap: 7px;
 		height: 100%;
-        text-align: center;
+		text-align: center;
 
 		& .date {
 			width: 100%;

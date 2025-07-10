@@ -1,22 +1,26 @@
-import { useNavigate } from 'react-router';
-import { Button, Search, Tabs } from '../../components';
-import { Project } from './components';
+import { CreateSearchBlock, Tabs } from '../../components';
+import { ProjectsList } from './components';
+import { useEffect } from 'react';
+import { request } from '../../utils';
+import { useDispatch } from 'react-redux';
+import { setProjects } from '../../actions';
 import styled from 'styled-components';
 
 const ProjectsContainer = ({ className }) => {
-    const navigate = useNavigate()
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		request('/api/projects', 'GET').then(({ data }) =>
+			dispatch(setProjects(data.projects)),
+		);
+	}, [dispatch]);
 
 	return (
 		<div className={className}>
 			<Tabs />
 			<div className="main">
-				<div className="create-search-block">
-					<Button width="250px" onClick={() => navigate('/create-project')}>Создать проект</Button>
-					<Search placeholder="Введите название проекта" />
-				</div>
-				<ul className="list">
-
-				</ul>
+				<CreateSearchBlock onClick={() => {}} type="tasks" />
+				<ProjectsList />
 			</div>
 		</div>
 	);
@@ -25,18 +29,5 @@ const ProjectsContainer = ({ className }) => {
 export const Projects = styled(ProjectsContainer)`
 	& .main {
 		padding: 30px 50px;
-
-		& .create-search-block {
-			display: flex;
-			justify-content: space-between;
-			margin-bottom: 70px;
-		}
-
-		& .list {
-			display: flex;
-			column-gap: 73px;
-			row-gap: 50px;
-			flex-wrap: wrap;
-		}
 	}
 `;
