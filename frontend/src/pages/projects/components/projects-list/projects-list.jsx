@@ -4,7 +4,7 @@ import { selectProjects } from '../../../../selectors';
 import styled from 'styled-components';
 
 const ProjectsListContainer = ({ className }) => {
-	const projects = useSelector(selectProjects);
+	const projects = useSelector(selectProjects).projects;
 
 	return (
 		<ul className={className}>

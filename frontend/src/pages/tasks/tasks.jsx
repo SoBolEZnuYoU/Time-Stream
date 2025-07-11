@@ -2,23 +2,42 @@ import { Tabs, CreateSearchBlock } from '../../components';
 import { OpenedTask, TasksList } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTaskIsOpen, selectTasks } from '../../selectors';
-import { loadTaskAsync, openInputModal, openTask, setTasks } from '../../actions';
+import {
+	addTaskAsync,
+	closeModal,
+	loadTaskAsync,
+	openInputModal,
+	openTask,
+	setTasksData,
+} from '../../actions';
 import { useEffect } from 'react';
 import { request } from '../../utils';
 import styled from 'styled-components';
 
 const TasksContainer = ({ className }) => {
 	const dispatch = useDispatch();
-	const tasks = useSelector(selectTasks).tasks;
 	const taskIsOpen = useSelector(selectTaskIsOpen);
+	const tasks = useSelector(selectTasks).tasks;
 	const refreshFlag = useSelector(selectTasks).refreshFlag;
 
 	useEffect(() => {
-		request('/api/tasks', 'GET').then(({ data }) => dispatch(setTasks(data.tasks)));
+		request('/api/tasks', 'GET').then(({ data }) => {
+			dispatch(setTasksData(data.tasks));
+		});
 	}, [dispatch, refreshFlag]);
 
 	const onCreateTask = () => {
-		dispatch(openInputModal);
+		dispatch(
+			openInputModal({
+				onConfirm: (title) => {
+					dispatch(addTaskAsync(request, title));
+					dispatch(closeModal);
+				},
+				onCancel: () => {
+					dispatch(closeModal);
+				},
+			}),
+		);
 	};
 
 	const onOpenTask = ({ target }) => {

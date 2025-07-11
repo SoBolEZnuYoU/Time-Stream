@@ -1,1 +1,1 @@
-export const selectProjects = ({ projects }) => projects.projects;
+export const selectProjects = ({ projects }) => projects;

@@ -1,74 +1,38 @@
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { request } from '../../utils';
-import styled from 'styled-components';
 import { COLOR } from '../../constants';
 import { Button } from '../button/button';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeModal, refreshTasks, resetCurrentTask } from '../../actions';
-import { ErrorMessage } from '../error-message/error-message';
-import { selectCurrentTask } from '../../selectors';
-
-const modalFormSchema = yup.object().shape({
-	title: yup.string().max(1500, 'Максимальная длина задачи - 1500 символов'),
-});
+import { useSelector } from 'react-redux';
+import { selectInputModalState } from '../../selectors';
+import { useState } from 'react';
+import styled from 'styled-components';
 
 const InputModalContainer = ({ className }) => {
-	const currentTask = useSelector(selectCurrentTask);
-	const {
-		register,
-		reset,
-		handleSubmit,
-		formState: { errors },
-	} = useForm({
-		defaultValues: {
-			title: currentTask.title,
-		},
-		resolver: yupResolver(modalFormSchema),
-	});
-
-	const dispatch = useDispatch();
-
-	const onSubmit = ({ title }) => {
-		if (currentTask.title) {
-			request(`/api/tasks/${currentTask.id}`, 'PATCH', { title });
-		} else {
-			request('/api/tasks', 'POST', { title });
-		}
-
-		reset();
-		dispatch(closeModal);
-		dispatch(resetCurrentTask);
-		dispatch(refreshTasks);
-	};
-
-	const onCancel = () => {
-		dispatch(closeModal);
-		dispatch(resetCurrentTask);
-	};
-
-	const formError = errors?.title?.message;
+	const text = useSelector(selectInputModalState).text;
+	const [inputValue, setInputValue] = useState(text);
+	const onConfirm = useSelector(selectInputModalState).onConfirm;
+	const onCancel = useSelector(selectInputModalState).onCancel;
 
 	return (
 		<div className={className}>
 			<div className="modal">
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<textarea
-						rows="9"
-						placeholder="Введите текст"
-						{...register('title')}
-					></textarea>
-					<div className="btn-box">
-						{formError && <ErrorMessage>{formError}</ErrorMessage>}
-						<Button type="submit" width="200px" style="filled-dark">
-							Применить
-						</Button>
-						<Button width="200px" onClick={onCancel}>
-							Отмена
-						</Button>
-					</div>
-				</form>
+				<textarea
+					rows="9"
+					placeholder="Введите текст"
+					value={inputValue}
+					onChange={({ target }) => setInputValue(target.value)}
+				></textarea>
+				<div className="btn-box">
+					<Button
+						type="submit"
+						width="200px"
+						style="filled-dark"
+						onClick={() => onConfirm(inputValue)}
+					>
+						Применить
+					</Button>
+					<Button width="200px" onClick={onCancel}>
+						Отмена
+					</Button>
+				</div>
 			</div>
 		</div>
 	);

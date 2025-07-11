@@ -1,4 +1,5 @@
 import { ACTION_TYPE } from '../actions';
+import { transformProjectTask } from '../utils';
 
 const initialProjectState = {
 	id: '',
@@ -15,6 +16,12 @@ export const projectReducer = (state = initialProjectState, action) => {
 			return {
 				...state,
 				...action.payload,
+				tasks: action.payload.tasks.map((task) => transformProjectTask(task)),
+			};
+		case ACTION_TYPE.SET_PROJECT_TASK_DATA:
+			return {
+				...state,
+				tasks: [...state.tasks, action.payload],
 			};
 		default:
 			return state;

@@ -56,7 +56,7 @@ router.post("/:id/tasks", authenticated, async (req, res) => {
         status: false,
     });
 
-    res.send({ data: newProjectTask });
+    res.send({ data: mapProjectTask(newProjectTask) });
 });
 
 router.delete("/:projectId/tasks/:taskId", authenticated, async (req, res) => {

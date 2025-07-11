@@ -7,6 +7,8 @@ import {
 	removeTaskAsync,
 	resetCurrentTask,
 	refreshTasks,
+	closeModal,
+	editTaskAsync,
 } from '../../../../actions';
 import { request } from '../../../../utils';
 import { selectCurrentTask } from '../../../../selectors';
@@ -26,7 +28,18 @@ const OpenedTaskContainer = ({ className }) => {
 
 	const onOpenEditModal = () => {
 		dispatch(closeTask);
-		dispatch(openInputModal);
+		dispatch(
+			openInputModal({
+				text: task.title,
+				onConfirm: (title) => {
+					dispatch(editTaskAsync(request, task.id, title));
+					dispatch(closeModal);
+				},
+				onCancel: () => {
+					dispatch(closeModal);
+				},
+			}),
+		);
 	};
 
 	const onBackClick = () => {
