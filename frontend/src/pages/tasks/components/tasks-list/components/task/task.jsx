@@ -1,12 +1,9 @@
 import { COLOR } from '../../../../../../constants';
+import { transformDate } from '../../../../../../utils';
 import styled from 'styled-components';
 
 const TaskContainer = ({ className, id, title, createdAt }) => {
-	const date = new Date(createdAt).toLocaleString('ru', {
-		year: 'numeric',
-		month: 'numeric',
-		day: 'numeric',
-	});
+	const date = transformDate(createdAt);
 
 	return (
 		<>

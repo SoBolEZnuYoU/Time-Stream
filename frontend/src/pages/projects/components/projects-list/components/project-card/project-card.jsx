@@ -2,15 +2,17 @@ import { useNavigate } from 'react-router';
 import { Icon } from '../../../../../../components';
 import { COLOR } from '../../../../../../constants';
 import styled from 'styled-components';
+import { transformDate } from '../../../../../../utils';
 
-const ProjectCardContainer = ({ className, id, title, created_at }) => {
+const ProjectCardContainer = ({ className, id, title, createdAt }) => {
 	const navigate = useNavigate();
+	const date = transformDate(createdAt);
 	return (
 		<li className={className} onClick={() => navigate(`/project/${id}`)}>
 			<Icon id="fa-folder" size="150px" color={COLOR.ORANGE} />
 			<div className="text-block">
 				<p className="title">{title}</p>
-				<p className="date">{created_at}</p>
+				<p className="date">{date}</p>
 			</div>
 		</li>
 	);
@@ -30,7 +32,6 @@ export const ProjectCard = styled(ProjectCardContainer)`
 		flex-direction: column;
 		justify-content: space-between;
 		row-gap: 7px;
-		height: 100%;
 		text-align: center;
 
 		& .date {

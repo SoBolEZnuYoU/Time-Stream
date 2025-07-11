@@ -1,2 +1,3 @@
-export * from './name-with-tasks/name-with-tasks'
-export * from './comment-with-buttons/comment-with-buttons'
+export * from './project-header/project-header'
+export * from './project-tasks-list/project-tasks-list'
+export * from './comment/comment'

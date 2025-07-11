@@ -1,4 +1,4 @@
-import { NameWithTasks, CommentWithButtons } from './components';
+import { ProjectHeader, Comment, ProjectTasksList } from './components';
 import { COLOR } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProject } from '../../selectors';
@@ -19,8 +19,9 @@ const ProjectContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<NameWithTasks title={project.title} tasks={project.tasks} />
-			<CommentWithButtons  comment={project.comment}/>
+			<ProjectHeader title={project.title} createdAt={project.createdAt} />
+            <ProjectTasksList tasks={project.tasks}/>
+			<Comment  comment={project.comment}/>
 		</div>
 	);
 };

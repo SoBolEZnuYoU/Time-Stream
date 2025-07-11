@@ -19,7 +19,7 @@ const ProjectsContainer = ({ className }) => {
 		<div className={className}>
 			<Tabs />
 			<div className="main">
-				<CreateSearchBlock onClick={() => {}} type="tasks" />
+				<CreateSearchBlock onClick={() => {}} />
 				<ProjectsList />
 			</div>
 		</div>

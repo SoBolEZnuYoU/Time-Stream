@@ -12,13 +12,13 @@ import {
 } from './pages';
 import { COLOR } from './constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectModalState } from './selectors';
+import { selectInputModalState } from './selectors';
 import styled from 'styled-components';
 import { useLayoutEffect } from 'react';
 import { setUser } from './actions';
 
 const TimeStreamContainer = ({ className }) => {
-	const inputModalIsOpen = useSelector(selectModalState).isOpen;
+	const inputModalIsOpen = useSelector(selectInputModalState).isOpen;
 	const dispatch = useDispatch();
 
 	useLayoutEffect(() => {

@@ -1,1 +1,1 @@
-export const selectModalState = ({ app }) => app.inputModal;
+export const selectInputModalState = ({ app }) => app.inputModal;

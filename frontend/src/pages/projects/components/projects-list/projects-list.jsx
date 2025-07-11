@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { ProjectCard } from './components';
-import styled from 'styled-components';
 import { selectProjects } from '../../../../selectors';
+import styled from 'styled-components';
 
 const ProjectsListContainer = ({ className }) => {
 	const projects = useSelector(selectProjects);

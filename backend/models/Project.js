@@ -6,6 +6,9 @@ const ProjectSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        comment: {
+            type: String,
+        },
         tasks: [
             {
                 type: mongoose.Schema.Types.ObjectId,
