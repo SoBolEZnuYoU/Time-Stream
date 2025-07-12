@@ -2,7 +2,7 @@ const Project = require("../models/Project");
 
 // add
 async function addProject(title) {
-    const newProject = await Project.create({title});
+    const newProject = await Project.create({ title });
 
     await newProject.populate("tasks");
 
@@ -10,8 +10,8 @@ async function addProject(title) {
 }
 
 // edit
-async function editProject(id, title) {
-    const newProject = await Project.findByIdAndUpdate(id, title, {
+async function editProject(id, data) {
+    const newProject = await Project.findByIdAndUpdate(id, data, {
         returnDocument: "after",
     });
 

@@ -9,6 +9,7 @@ const {
 const {
     addProjectTask,
     deleteProjectTask,
+    editProjectTask,
 } = require("../controllers/projectTask");
 const mapProject = require("../helpers/mapProject");
 const mapProjectTask = require("../helpers/mapProjetTask");
@@ -39,7 +40,7 @@ router.post("/", authenticated, async (req, res) => {
 });
 
 router.patch("/:id", authenticated, async (req, res) => {
-    const updateProject = await editProject(req.params.id, req.body.title);
+    const updateProject = await editProject(req.params.id, req.body.newData);
 
     res.send({ data: mapProject(updateProject) });
 });
@@ -55,6 +56,15 @@ router.post("/:id/tasks", authenticated, async (req, res) => {
         title: req.body.title,
         status: false,
     });
+
+    res.send({ data: mapProjectTask(newProjectTask) });
+});
+
+router.patch("/:projectId/tasks/:taskId", authenticated, async (req, res) => {
+    const newProjectTask = await editProjectTask(
+        req.params.taskId,
+        req.body.data
+    );
 
     res.send({ data: mapProjectTask(newProjectTask) });
 });

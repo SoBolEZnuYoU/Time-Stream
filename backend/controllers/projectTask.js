@@ -11,6 +11,14 @@ async function addProjectTask(projectId, task) {
     return newProjectTask;
 }
 
+async function editProjectTask(taskId, data) {
+    const newProjectTask = await ProjectTask.findByIdAndUpdate(taskId, data, {
+        returnDocument: "after",
+    });
+
+    return newProjectTask;
+}
+
 async function deleteProjectTask(projectId, taskId) {
     await ProjectTask.deleteOne({ _id: taskId });
     await Project.findByIdAndUpdate(projectId, {
@@ -20,5 +28,6 @@ async function deleteProjectTask(projectId, taskId) {
 
 module.exports = {
     addProjectTask,
+    editProjectTask,
     deleteProjectTask,
 };
