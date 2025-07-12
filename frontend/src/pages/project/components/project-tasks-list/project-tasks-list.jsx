@@ -23,26 +23,39 @@ const ProjectTasksListContainer = ({ className, tasks, projectId }) => {
 	};
 
 	return (
-		<ul className={className}>
-			{hasTasks ? (
-				tasks.map((task) => <ProjectTask task={task} key={task.id} />)
-			) : (
-				<p>Задачи не найдены...</p>
-			)}
+		<div className={className}>
+			<ul className="list">
+				{hasTasks ? (
+					tasks.map((task) => (
+						<ProjectTask task={task} projectId={projectId} status={task.status} key={task.id} />
+					))
+				) : (
+					<p>Задачи не найдены...</p>
+				)}
+			</ul>
 			<Button width={'250px'} onClick={onCreateTask}>
 				Создать задачу
 			</Button>
-		</ul>
+		</div>
 	);
 };
 
 export const ProjectTasksList = styled(ProjectTasksListContainer)`
-	height: 600px;
-	padding: 30px;
-	border-block: 1px solid ${COLOR.DARK};
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	border-top: 1px solid ${COLOR.DARK};
+	height: 520px;
+
+	& .list {
+		width: 100%;
+		height: 420px;
+		padding: 30px 40px;
+		margin-bottom: 20px;
+		display: flex;
+		flex-direction: column;
+		overflow-y: auto;
+	}
 
 	& p {
 		margin-bottom: 20px;

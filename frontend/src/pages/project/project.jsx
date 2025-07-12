@@ -19,9 +19,13 @@ const ProjectContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<ProjectHeader title={project.title} createdAt={project.createdAt} />
+			<ProjectHeader
+				id={project.id}
+				title={project.title}
+				createdAt={project.createdAt}
+			/>
 			<ProjectTasksList tasks={project.tasks} projectId={project.id} />
-			<Comment comment={project.comment} />
+			<Comment id={project.id} comment={project.comment} />
 		</div>
 	);
 };

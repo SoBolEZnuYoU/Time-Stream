@@ -14,7 +14,7 @@ export const projectReducer = (state = initialProjectState, action) => {
 	switch (action.type) {
 		case ACTION_TYPE.SET_PROJECT_DATA:
 			return {
-				...state,
+				...initialProjectState,
 				...action.payload,
 				tasks: action.payload.tasks.map((task) => transformProjectTask(task)),
 			};

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 const InputModalContainer = ({ className }) => {
 	const text = useSelector(selectInputModalState).text;
+	const question = useSelector(selectInputModalState).question;
 	const [inputValue, setInputValue] = useState(text);
 	const onConfirm = useSelector(selectInputModalState).onConfirm;
 	const onCancel = useSelector(selectInputModalState).onCancel;
@@ -14,12 +15,16 @@ const InputModalContainer = ({ className }) => {
 	return (
 		<div className={className}>
 			<div className="modal">
-				<textarea
-					rows="9"
-					placeholder="Введите текст"
-					value={inputValue}
-					onChange={({ target }) => setInputValue(target.value)}
-				></textarea>
+				{question ? (
+					<p>{question}</p>
+				) : (
+					<textarea
+						rows="9"
+						placeholder="Введите текст"
+						value={inputValue}
+						onChange={({ target }) => setInputValue(target.value)}
+					></textarea>
+				)}
 				<div className="btn-box">
 					<Button
 						type="submit"
@@ -56,6 +61,13 @@ export const InputModal = styled(InputModalContainer)`
 		background-color: ${COLOR.LIGHT};
 		width: 1000px;
 		height: fit-content;
+
+		& p {
+			text-align: center;
+			font-size: 30px;
+			color: ${COLOR.DARK};
+			margin: 50px 0 100px;
+		}
 	}
 
 	& textarea {

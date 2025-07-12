@@ -5,7 +5,6 @@ import {
 	closeTask,
 	openInputModal,
 	removeTaskAsync,
-	resetCurrentTask,
 	refreshTasks,
 	closeModal,
 	editTaskAsync,
@@ -19,11 +18,20 @@ const OpenedTaskContainer = ({ className }) => {
 	const task = useSelector(selectCurrentTask);
 
 	const onDeleteTask = () => {
-		dispatch(removeTaskAsync(request, task.id)).then(() => {
-			dispatch(refreshTasks);
-			dispatch(resetCurrentTask);
-			dispatch(closeTask);
-		});
+		dispatch(closeTask);
+		dispatch(
+			openInputModal({
+				question: 'Вы действительно хотите удаль задачу?',
+				onConfirm: () => {
+					dispatch(removeTaskAsync(request, task.id));
+					dispatch(refreshTasks);
+					dispatch(closeModal);
+				},
+				onCancel: () => {
+					dispatch(closeModal);
+				},
+			}),
+		);
 	};
 
 	const onOpenEditModal = () => {
@@ -44,7 +52,6 @@ const OpenedTaskContainer = ({ className }) => {
 
 	const onBackClick = () => {
 		dispatch(closeTask);
-		dispatch(resetCurrentTask);
 	};
 
 	return (

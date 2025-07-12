@@ -7,4 +7,3 @@ export * from './input/input';
 export * from './left-bar/left-bar';
 export * from './input-modal/input-modal';
 export * from './search/search';
-export * from './tabs/tabs';

@@ -1,4 +1,4 @@
-import { Tabs, CreateSearchBlock } from '../../components';
+import { CreateSearchBlock } from '../../components';
 import { OpenedTask, TasksList } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTaskIsOpen, selectTasks } from '../../selectors';
@@ -49,7 +49,6 @@ const TasksContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<Tabs />
 			<div className="main">
 				<CreateSearchBlock onClick={onCreateTask} type="tasks" />
 				<TasksList tasks={tasks} onClick={onOpenTask} />

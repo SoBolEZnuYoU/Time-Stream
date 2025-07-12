@@ -8,8 +8,8 @@ const ProjectsListContainer = ({ className }) => {
 
 	return (
 		<ul className={className}>
-			{projects.map(({ id, title, createdAt }) => (
-				<ProjectCard title={title} createdAt={createdAt} key={id} id={id} />
+			{projects.map((project) => (
+				<ProjectCard project={project} createdAt={project.createdAt} key={project.id} />
 			))}
 		</ul>
 	);
@@ -17,9 +17,8 @@ const ProjectsListContainer = ({ className }) => {
 
 export const ProjectsList = styled(ProjectsListContainer)`
 	display: flex;
-	column-gap: 73px;
+	column-gap: 93px;
 	row-gap: 50px;
 	flex-wrap: wrap;
-	height: 650px;
 	overflow-y: auto;
 `;
