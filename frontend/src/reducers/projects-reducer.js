@@ -3,6 +3,7 @@ import { ACTION_TYPE } from '../actions';
 const initialProjectsState = {
 	refreshFlag: false,
 	projects: [],
+	lastPage: 1,
 };
 
 export const projectsReducer = (state = initialProjectsState, action) => {
@@ -10,7 +11,7 @@ export const projectsReducer = (state = initialProjectsState, action) => {
 		case ACTION_TYPE.SET_PROJECTS:
 			return {
 				...state,
-				projects: action.payload,
+				...action.payload,
 			};
 		case ACTION_TYPE.REFRESH_PROJECTS:
 			return {

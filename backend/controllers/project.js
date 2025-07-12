@@ -26,7 +26,7 @@ function deleteProject(id) {
 }
 
 // get list with search
-async function getProjects(search = "", limit = 20, page = 1) {
+async function getProjects(search = "", limit = 12, page = 1) {
     const [projects, count] = await Promise.all([
         Project.find({ title: { $regex: search, $options: "i" } })
             .limit(limit)

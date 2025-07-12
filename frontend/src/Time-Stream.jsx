@@ -68,6 +68,7 @@ export const TimeStream = styled(TimeStreamContainer)`
 	box-shadow: 0 0 20px 0 #333;
 
 	& .content {
+		position: relative;
 		background-color: ${COLOR.LIGHT};
 		height: 100%;
 		width: 1100px;

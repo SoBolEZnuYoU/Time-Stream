@@ -6,14 +6,12 @@ const TaskContainer = ({ className, id, title, createdAt }) => {
 	const date = transformDate(createdAt);
 
 	return (
-		<>
-			<li className={className}>
-				<p className="title" id={id}>
-					{title}
-				</p>
-				<p className="createdAt">{date}</p>
-			</li>
-		</>
+		<li className={className}>
+			<p className="title" id={id}>
+				{title}
+			</p>
+			<p className="createdAt">{date}</p>
+		</li>
 	);
 };
 
@@ -24,6 +22,7 @@ export const Task = styled(TaskContainer)`
 	font-size: 22px;
 	color: ${COLOR.DARK};
 	border-bottom: 1px solid ${COLOR.DARK};
+	padding: 5px 0;
 
 	& .title {
 		white-space: nowrap;

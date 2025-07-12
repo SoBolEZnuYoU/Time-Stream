@@ -1,9 +1,9 @@
 import { COLOR } from '../../constants';
 import styled from 'styled-components';
 
-const ButtonContainer = ({ className, children, onClick }) => {
+const ButtonContainer = ({ className, children, style, ...props }) => {
 	return (
-		<button className={className} onClick={onClick}>
+		<button className={className} {...props}>
 			{children}
 		</button>
 	);
@@ -22,7 +22,7 @@ export const Button = styled(ButtonContainer)`
 	justify-content: center;
 	align-items: center;
 	font-size: 28px;
-    font-family: 'Roboto slab';
+	font-family: 'Roboto slab';
 	cursor: pointer;
 
 	&:hover {

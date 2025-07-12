@@ -35,7 +35,7 @@ export const ProjectCard = styled(ProjectCardContainer)`
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		row-gap: 20px;
+		row-gap: 15px;
 		height: 100%;
 		width: 100%;
 

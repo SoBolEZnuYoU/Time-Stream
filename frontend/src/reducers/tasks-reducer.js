@@ -10,7 +10,7 @@ export const tasksReducer = (state = initialTasksState, action) => {
 		case ACTION_TYPE.SET_TASKS_DATA:
 			return {
 				...state,
-				tasks: action.payload,
+				...action.payload,
 			};
 		case ACTION_TYPE.REFRESH_TASKS:
 			return {

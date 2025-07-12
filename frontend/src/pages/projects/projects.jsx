@@ -1,21 +1,37 @@
-import { CreateSearchBlock } from '../../components';
+import { CreateSearchBlock, Pagination } from '../../components';
 import { ProjectsList } from './components';
-import { useEffect } from 'react';
-import { request } from '../../utils';
+import { useEffect, useMemo, useState } from 'react';
+import { debounce, request } from '../../utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProjectAsync, closeModal, openInputModal, setProjects } from '../../actions';
+import {
+	addProjectAsync,
+	closeModal,
+	loadProjectsAsync,
+	openInputModal,
+} from '../../actions';
 import { selectProjects } from '../../selectors';
 import styled from 'styled-components';
 
 const ProjectsContainer = ({ className }) => {
 	const dispatch = useDispatch();
+
 	const refreshFlag = useSelector(selectProjects).refreshFlag;
+	const lastPage = useSelector(selectProjects).lastPage;
+
+	const [page, setPage] = useState(1);
+	const [searchPhrase, setSearchPhrase] = useState('');
+	const [shouldSearch, setShouldSearch] = useState(false);
 
 	useEffect(() => {
-		request('/api/projects', 'GET').then(({ data }) =>
-			dispatch(setProjects(data.projects)),
-		);
-	}, [dispatch, refreshFlag]);
+		dispatch(loadProjectsAsync(request, page, searchPhrase));
+	}, [dispatch, refreshFlag, page, shouldSearch]);
+
+	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 1000), []);
+
+	const onSearch = ({ target }) => {
+		setSearchPhrase(target.value);
+		startDelayedSearch(!shouldSearch);
+	};
 
 	const onCreateProject = () => {
 		dispatch(
@@ -33,16 +49,17 @@ const ProjectsContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<div className="main">
-				<CreateSearchBlock onClick={onCreateProject} />
-				<ProjectsList />
-			</div>
+			<CreateSearchBlock
+				onClick={onCreateProject}
+				searchPhrase={searchPhrase}
+				onChange={onSearch}
+			/>
+			<ProjectsList />
+			<Pagination page={page} setPage={setPage} lastPage={lastPage} />
 		</div>
 	);
 };
 
 export const Projects = styled(ProjectsContainer)`
-	& .main {
-		padding: 30px 50px;
-	}
+	padding: 30px 50px;
 `;

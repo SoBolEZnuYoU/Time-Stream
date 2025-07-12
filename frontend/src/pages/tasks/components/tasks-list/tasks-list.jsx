@@ -1,7 +1,11 @@
+import { useSelector } from 'react-redux';
 import { Task } from './components';
+import { selectTasks } from '../../../../selectors';
 import styled from 'styled-components';
 
-const TasksListContainer = ({ className, tasks, onClick }) => {
+const TasksListContainer = ({ className, onClick }) => {
+	const tasks = useSelector(selectTasks).tasks;
+
 	return (
 		<ul className={className} onClick={onClick}>
 			{tasks.map(({ id, title, createdAt }) => (

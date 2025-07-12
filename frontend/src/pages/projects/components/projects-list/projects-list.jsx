@@ -18,7 +18,8 @@ const ProjectsListContainer = ({ className }) => {
 export const ProjectsList = styled(ProjectsListContainer)`
 	display: flex;
 	column-gap: 93px;
-	row-gap: 50px;
+	row-gap: 30px;
 	flex-wrap: wrap;
 	overflow-y: auto;
+	max-height: 700px;
 `;

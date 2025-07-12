@@ -1,4 +1,4 @@
-import { CreateSearchBlock } from '../../components';
+import { CreateSearchBlock, Pagination } from '../../components';
 import { OpenedTask, TasksList } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTaskIsOpen, selectTasks } from '../../selectors';
@@ -6,25 +6,29 @@ import {
 	addTaskAsync,
 	closeModal,
 	loadTaskAsync,
+	loadTasksAsync,
 	openInputModal,
 	openTask,
-	setTasksData,
 } from '../../actions';
-import { useEffect } from 'react';
-import { request } from '../../utils';
+import { useEffect, useMemo, useState } from 'react';
+import { debounce, request } from '../../utils';
 import styled from 'styled-components';
 
 const TasksContainer = ({ className }) => {
 	const dispatch = useDispatch();
 	const taskIsOpen = useSelector(selectTaskIsOpen);
-	const tasks = useSelector(selectTasks).tasks;
 	const refreshFlag = useSelector(selectTasks).refreshFlag;
+	const lastPage = useSelector(selectTasks).lastPage;
+
+	const [page, setPage] = useState(1);
+	const [searchPhrase, setSearchPhrase] = useState('');
+	const [shouldSearch, setShouldSearch] = useState(false);
 
 	useEffect(() => {
-		request('/api/tasks', 'GET').then(({ data }) => {
-			dispatch(setTasksData(data.tasks));
-		});
-	}, [dispatch, refreshFlag]);
+		dispatch(loadTasksAsync(request, page, searchPhrase));
+	}, [dispatch, refreshFlag, page, shouldSearch]);
+
+	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 1000), []);
 
 	const onCreateTask = () => {
 		dispatch(
@@ -40,6 +44,11 @@ const TasksContainer = ({ className }) => {
 		);
 	};
 
+	const onSearch = ({ target }) => {
+		setSearchPhrase(target.value);
+		startDelayedSearch(!shouldSearch);
+	};
+
 	const onOpenTask = ({ target }) => {
 		if (target.className === 'title') {
 			dispatch(loadTaskAsync(request, target.id));
@@ -50,9 +59,15 @@ const TasksContainer = ({ className }) => {
 	return (
 		<div className={className}>
 			<div className="main">
-				<CreateSearchBlock onClick={onCreateTask} type="tasks" />
-				<TasksList tasks={tasks} onClick={onOpenTask} />
+				<CreateSearchBlock
+					onClick={onCreateTask}
+					type="tasks"
+					searchPhrase={searchPhrase}
+					onChange={onSearch}
+				/>
+				<TasksList onClick={onOpenTask} />
 			</div>
+			<Pagination page={page} setPage={setPage} lastPage={lastPage} />
 			{taskIsOpen && <OpenedTask />}
 		</div>
 	);
