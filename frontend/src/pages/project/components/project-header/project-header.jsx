@@ -1,6 +1,6 @@
 import { H2, Icon } from '../../../../components';
 import styled from 'styled-components';
-import { request, transformDate } from '../../../../utils';
+import { request, transformDate, transformTime } from '../../../../utils';
 import { useDispatch } from 'react-redux';
 import {
 	closeModal,
@@ -10,7 +10,7 @@ import {
 } from '../../../../actions';
 import { useNavigate } from 'react-router';
 
-const ProjectHeaderContainer = ({ className, id, title, createdAt }) => {
+const ProjectHeaderContainer = ({ className, id, title, spendTime, createdAt }) => {
 	const date = transformDate(createdAt);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -50,7 +50,10 @@ const ProjectHeaderContainer = ({ className, id, title, createdAt }) => {
 		<div className={className}>
 			<div className="text-block">
 				<H2>{title}</H2>
-				<p>{date}</p>
+				<div className="info">
+					<p>{date}</p>
+					<p>В работе: {transformTime(spendTime)}</p>
+				</div>
 			</div>
 			<div className="btn-box">
 				<Icon id="fa-edit" size="39px" y="5px" onClick={onEditTitle} />
@@ -69,6 +72,11 @@ export const ProjectHeader = styled(ProjectHeaderContainer)`
 	& h2 {
 		max-width: 850px;
 		margin-bottom: 10px;
+	}
+
+	& .info {
+		display: flex;
+        column-gap: 100px;
 	}
 
 	& .btn-box {

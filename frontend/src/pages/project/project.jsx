@@ -22,6 +22,7 @@ const ProjectContainer = ({ className }) => {
 			<ProjectHeader
 				id={project.id}
 				title={project.title}
+				spendTime={project.spendTime}
 				createdAt={project.createdAt}
 			/>
 			<ProjectTasksList tasks={project.tasks} projectId={project.id} />

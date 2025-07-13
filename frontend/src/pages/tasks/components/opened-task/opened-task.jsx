@@ -40,7 +40,7 @@ const OpenedTaskContainer = ({ className }) => {
 			openInputModal({
 				text: task.title,
 				onConfirm: (title) => {
-					dispatch(editTaskAsync(request, task.id, title));
+					dispatch(editTaskAsync(request, task.id, { title }));
 					dispatch(closeModal);
 				},
 				onCancel: () => {
