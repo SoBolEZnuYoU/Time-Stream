@@ -67,7 +67,7 @@ const TasksContainer = ({ className }) => {
 				/>
 				<TasksList onClick={onOpenTask} />
 			</div>
-			<Pagination page={page} setPage={setPage} lastPage={lastPage} />
+			{lastPage > 1 && <Pagination page={page} setPage={setPage} lastPage={lastPage} />}
 			{taskIsOpen && <OpenedTask />}
 		</div>
 	);

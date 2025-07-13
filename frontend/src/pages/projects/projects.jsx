@@ -55,7 +55,7 @@ const ProjectsContainer = ({ className }) => {
 				onChange={onSearch}
 			/>
 			<ProjectsList />
-			<Pagination page={page} setPage={setPage} lastPage={lastPage} />
+			{lastPage > 1 && <Pagination page={page} setPage={setPage} lastPage={lastPage} />}
 		</div>
 	);
 };

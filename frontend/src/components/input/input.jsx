@@ -8,9 +8,9 @@ const InputContainer = ({ className, ...props }) => {
 export const Input = styled(InputContainer)`
 	background-color: #fff;
 	border: 2px solid ${COLOR.DARK};
-	width: ${({width = '100%'}) => width};
+	width: ${({ width = '100%' }) => width};
 	padding: 7px 5px;
 	border-radius: 7px;
 	font-size: 20px;
-    text-wrap: wrap;
+	text-wrap: wrap;
 `;
