@@ -1,7 +1,7 @@
 import { ProjectHeader, Comment, ProjectTasksList } from './components';
 import { COLOR } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectProject } from '../../selectors';
+import { selectCurrentProject } from '../../selectors';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { loadProjectAsync } from '../../actions';
@@ -9,7 +9,7 @@ import { request } from '../../utils';
 import styled from 'styled-components';
 
 const ProjectContainer = ({ className }) => {
-	const project = useSelector(selectProject);
+	const project = useSelector(selectCurrentProject);
 	const dispatch = useDispatch();
 	const params = useParams();
 

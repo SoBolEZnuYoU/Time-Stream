@@ -1,6 +1,6 @@
 import { setProjectData } from './set-project-data';
 
-export const editProjectTitleAsync = (request, id, newData) => (dispatch) => {
+export const editProjectAsync = (request, id, newData) => (dispatch) => {
 	request(`/api/projects/${id}`, 'PATCH', { newData }).then(({ data }) => {
 		dispatch(setProjectData(data));
 	});

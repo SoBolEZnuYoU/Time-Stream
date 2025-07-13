@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { Button, Icon } from '../../../../components';
 import { COLOR } from '../../../../constants';
-import styled from 'styled-components';
-import { closeModal, editProjectTitleAsync, openInputModal } from '../../../../actions';
+import { closeModal, editProjectAsync, openInputModal } from '../../../../actions';
 import { request } from '../../../../utils';
+import styled from 'styled-components';
 
 const CommentContainer = ({ className, id, comment }) => {
 	const hasComment = comment.length > 0;
@@ -14,7 +14,7 @@ const CommentContainer = ({ className, id, comment }) => {
 			openInputModal({
 				text: comment,
 				onConfirm: (newComment) => {
-					dispatch(editProjectTitleAsync(request, id, { comment: newComment }));
+					dispatch(editProjectAsync(request, id, { comment: newComment }));
 					dispatch(closeModal);
 				},
 				onCancel: () => {

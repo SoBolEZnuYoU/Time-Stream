@@ -9,6 +9,9 @@ const ProjectSchema = mongoose.Schema(
         comment: {
             type: String,
         },
+        spendTime: {
+            type: Number,
+        },
         tasks: [
             {
                 type: mongoose.Schema.Types.ObjectId,

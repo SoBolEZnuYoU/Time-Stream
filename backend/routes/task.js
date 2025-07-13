@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
 });
 
 router.patch("/:id", async (req, res) => {
-    const updateTask = await editTask(req.params.id, req.body.title);
+    const updateTask = await editTask(req.params.id, req.body.newData);
 
     res.send({ data: mapTask(updateTask) });
 });

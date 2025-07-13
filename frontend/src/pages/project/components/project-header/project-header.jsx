@@ -4,7 +4,7 @@ import { request, transformDate } from '../../../../utils';
 import { useDispatch } from 'react-redux';
 import {
 	closeModal,
-	editProjectTitleAsync,
+	editProjectAsync,
 	openInputModal,
 	removeProjectAsync,
 } from '../../../../actions';
@@ -36,7 +36,7 @@ const ProjectHeaderContainer = ({ className, id, title, createdAt }) => {
 			openInputModal({
 				text: title,
 				onConfirm: (newTitle) => {
-					dispatch(editProjectTitleAsync(request, id, { title: newTitle }));
+					dispatch(editProjectAsync(request, id, { title: newTitle }));
 					dispatch(closeModal);
 				},
 				onCancel: () => {

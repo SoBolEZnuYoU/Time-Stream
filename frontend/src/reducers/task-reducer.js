@@ -4,6 +4,7 @@ const initialTaskState = {
 	isOpen: false,
 	title: '',
 	id: '',
+	spendTime: 0,
 	createdAt: '',
 };
 
@@ -24,6 +25,8 @@ export const taskReducer = (state = initialTaskState, action) => {
 				...state,
 				...action.payload,
 			};
+		case ACTION_TYPE.RESET_TASK_DATA:
+			return initialTaskState;
 		default:
 			return state;
 	}

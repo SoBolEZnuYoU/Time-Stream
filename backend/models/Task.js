@@ -6,6 +6,9 @@ const TaskSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        spendTime: {
+            type: Number,
+        },
     },
     { timestamps: true }
 );

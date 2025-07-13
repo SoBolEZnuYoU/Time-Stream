@@ -7,6 +7,7 @@ const initialProjectState = {
 	comment: '',
 	created_at: '',
 	amountTasks: '',
+	spendTime: 0,
 	tasks: [],
 };
 
@@ -23,6 +24,8 @@ export const projectReducer = (state = initialProjectState, action) => {
 				...state,
 				tasks: [...state.tasks, action.payload],
 			};
+		case ACTION_TYPE.RESET_PROJECT_DATA:
+			return initialProjectState;
 		default:
 			return state;
 	}

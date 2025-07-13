@@ -1,14 +1,23 @@
 import { COLOR } from '../../../../constants';
-import { Icon } from '../../../../components';
+import { Button, Icon } from '../../../../components';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { FormModeSelect, TimerInputs } from './components';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentProject, selectCurrentTask } from '../../../../selectors';
+import { editProjectAsync, editTaskAsync } from '../../../../actions';
+import { request } from '../../../../utils';
+import styled from 'styled-components';
 
 const TimerStopwatchContainer = ({ className }) => {
-	const [mode, setMode] = useState('timer');
+	const [mode, setMode] = useState('stopwatch');
 	const [seconds, setSeconds] = useState(0);
 	const [minutes, setMinutes] = useState(0);
 	const [isRunning, setIsRunning] = useState(false);
+
+	const currentProject = useSelector(selectCurrentProject);
+	const currentTask = useSelector(selectCurrentTask);
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		let interval = null;
@@ -51,6 +60,25 @@ const TimerStopwatchContainer = ({ className }) => {
 		setIsRunning(true);
 	};
 
+	const handleStop = () => {
+		if (currentProject.id) {
+			dispatch(
+				editProjectAsync(request, currentProject.id, {
+					spendTime: currentProject?.spendTime + minutes * 60 + seconds,
+				}),
+			);
+		} else if (currentTask.id) {
+			dispatch(
+				editTaskAsync(request, currentTask.id, {
+					spendTime: currentTask?.spendTime + minutes * 60 + seconds,
+				}),
+			);
+		}
+		setIsRunning(false);
+		setSeconds(0);
+		setMinutes(0);
+	};
+
 	const handleReset = () => {
 		setIsRunning(false);
 		setSeconds(0);
@@ -78,7 +106,10 @@ const TimerStopwatchContainer = ({ className }) => {
 			</p>
 			<div className="btn-box">
 				<Icon id="fa-play-circle-o" size="80px" onClick={handleStart} />
-				<Icon id="fa-stop-circle-o" size="80px" onClick={handleReset} />
+				<Icon id="fa-stop-circle-o" size="80px" onClick={handleStop} />
+				<Button style="filled-dark" onClick={handleReset}>
+					Сброс
+				</Button>
 			</div>
 		</div>
 	);
@@ -111,6 +142,7 @@ export const TimerStopwatch = styled(TimerStopwatchContainer)`
 
 	& .btn-box {
 		display: flex;
+		align-items: end;
 		column-gap: 15px;
 	}
 `;
