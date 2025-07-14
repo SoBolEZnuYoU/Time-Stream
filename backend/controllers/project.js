@@ -1,8 +1,8 @@
 const Project = require("../models/Project");
 
 // add
-async function addProject(title) {
-    const newProject = await Project.create({ title });
+async function addProject(title, userId) {
+    const newProject = await Project.create({ title, userId });
 
     await newProject.populate("tasks");
 
@@ -10,7 +10,7 @@ async function addProject(title) {
 }
 
 // edit
-async function editProject(id, data) {
+async function editProject(data) {
     const newProject = await Project.findByIdAndUpdate(id, data, {
         returnDocument: "after",
     });
@@ -26,9 +26,9 @@ function deleteProject(id) {
 }
 
 // get list with search
-async function getProjects(search = "", limit = 12, page = 1) {
+async function getProjects(search = "", limit = 12, page = 1, userId) {
     const [projects, count] = await Promise.all([
-        Project.find({ title: { $regex: search, $options: "i" } })
+        Project.find({ title: { $regex: search, $options: "i" }, userId })
             .limit(limit)
             .skip((page - 1) * limit)
             .sort({ createdAt: -1 }),

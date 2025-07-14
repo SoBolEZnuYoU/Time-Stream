@@ -4,6 +4,7 @@ export * from './select-current-project';
 export * from './select-projects';
 export * from './select-tasks';
 export * from './select-task-is-open';
+export * from './select-user-id';
 export * from './select-user-login';
 export * from './select-user-role';
 export * from './select-user-session';

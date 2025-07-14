@@ -18,6 +18,11 @@ const ProjectSchema = mongoose.Schema(
                 ref: "ProjectTask",
             },
         ],
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
     },
     { timestamps: true }
 );

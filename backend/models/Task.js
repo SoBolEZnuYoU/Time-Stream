@@ -9,6 +9,11 @@ const TaskSchema = mongoose.Schema(
         spendTime: {
             type: Number,
         },
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
     },
     { timestamps: true }
 );

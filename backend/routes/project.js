@@ -21,7 +21,8 @@ router.get("/", authenticated, async (req, res) => {
     const { projects, lastPage } = await getProjects(
         req.query.search,
         req.query.limit,
-        req.query.page
+        req.query.page,
+        req.query.userId
     );
 
     res.send({ data: { lastPage, projects: projects.map(mapProject) } });
@@ -34,7 +35,7 @@ router.get("/:id", authenticated, async (req, res) => {
 });
 
 router.post("/", authenticated, async (req, res) => {
-    const newProject = await addProject(req.body.title);
+    const newProject = await addProject(req.body.title, req.body.userId);
 
     res.send({ data: mapProject(newProject) });
 });

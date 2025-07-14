@@ -1,8 +1,8 @@
 const Task = require("../models/Task");
 
 // add
-function addTask(title) {
-    const newTask = Task.create({ title });
+function addTask(title, userId) {
+    const newTask = Task.create({ title, userId });
 
     return newTask;
 }
@@ -22,9 +22,9 @@ function deleteTask(id) {
 }
 
 // get list with search
-async function getTasks(search = "", limit = 25, page = 1) {
+async function getTasks(search = "", limit = 25, page = 1, userId) {
     const [tasks, count] = await Promise.all([
-        Task.find({ title: { $regex: search, $options: "i" } })
+        Task.find({ title: { $regex: search, $options: "i" }, userId })
             .limit(limit)
             .skip((page - 1) * limit)
             .sort({ createdAt: -1 }),

@@ -1,7 +1,7 @@
 import { CreateSearchBlock, Loader, Pagination } from '../../components';
 import { OpenedTask, TasksList } from './components';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTaskIsOpen, selectTasks } from '../../selectors';
+import { selectTaskIsOpen, selectTasks, selectUserId } from '../../selectors';
 import {
 	addTaskAsync,
 	closeModal,
@@ -19,6 +19,7 @@ const TasksContainer = ({ className }) => {
 	const taskIsOpen = useSelector(selectTaskIsOpen);
 	const refreshFlag = useSelector(selectTasks).refreshFlag;
 	const lastPage = useSelector(selectTasks).lastPage;
+	const userId = useSelector(selectUserId);
 
 	const [page, setPage] = useState(1);
 	const [searchPhrase, setSearchPhrase] = useState('');
@@ -26,9 +27,13 @@ const TasksContainer = ({ className }) => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		setIsLoading(true);
-		dispatch(loadTasksAsync(request, page, searchPhrase)).then(() => setIsLoading(false));
-	}, [dispatch, refreshFlag, page, shouldSearch]);
+		if (userId) {
+			setIsLoading(true);
+			dispatch(loadTasksAsync(request, page, searchPhrase, userId)).then(() =>
+				setIsLoading(false),
+			);
+		}
+	}, [dispatch, refreshFlag, page, shouldSearch, userId]);
 
 	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 1000), []);
 
@@ -36,7 +41,7 @@ const TasksContainer = ({ className }) => {
 		dispatch(
 			openInputModal({
 				onConfirm: (title) => {
-					dispatch(addTaskAsync(request, title));
+					dispatch(addTaskAsync(request, title, userId));
 					dispatch(closeModal);
 				},
 				onCancel: () => {

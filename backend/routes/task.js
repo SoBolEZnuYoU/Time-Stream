@@ -14,7 +14,8 @@ router.get("/", async (req, res) => {
     const { tasks, lastPage } = await getTasks(
         req.query.search,
         req.query.limit,
-        req.query.page
+        req.query.page,
+        req.query.userId
     );
 
     res.send({ data: { lastPage, tasks: tasks.map(mapTask) } });
@@ -27,7 +28,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    const newTask = await addTask(req.body.title);
+    const newTask = await addTask(req.body.title, req.body.userId);
 
     res.send({ data: mapTask(newTask) });
 });

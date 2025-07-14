@@ -9,7 +9,7 @@ import {
 	loadProjectsAsync,
 	openInputModal,
 } from '../../actions';
-import { selectProjects } from '../../selectors';
+import { selectProjects, selectUserId } from '../../selectors';
 import styled from 'styled-components';
 
 const ProjectsContainer = ({ className }) => {
@@ -17,6 +17,7 @@ const ProjectsContainer = ({ className }) => {
 
 	const refreshFlag = useSelector(selectProjects).refreshFlag;
 	const lastPage = useSelector(selectProjects).lastPage;
+	const userId = useSelector(selectUserId);
 
 	const [page, setPage] = useState(1);
 	const [searchPhrase, setSearchPhrase] = useState('');
@@ -24,11 +25,13 @@ const ProjectsContainer = ({ className }) => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		setIsLoading(true);
-		dispatch(loadProjectsAsync(request, page, searchPhrase)).then(() =>
-			setIsLoading(false),
-		);
-	}, [dispatch, refreshFlag, page, shouldSearch]);
+		if (userId) {
+			setIsLoading(true);
+			dispatch(loadProjectsAsync(request, page, searchPhrase, userId)).then(() =>
+				setIsLoading(false),
+			);
+		}
+	}, [dispatch, refreshFlag, page, shouldSearch, userId]);
 
 	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 1000), []);
 
@@ -41,7 +44,7 @@ const ProjectsContainer = ({ className }) => {
 		dispatch(
 			openInputModal({
 				onConfirm: (title) => {
-					dispatch(addProjectAsync(request, title));
+					dispatch(addProjectAsync(request, title, userId));
 					dispatch(closeModal);
 				},
 				onCancel: () => {
