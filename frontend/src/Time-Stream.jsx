@@ -10,16 +10,17 @@ import {
 	Tasks,
 	UserSettings,
 } from './pages';
-import { COLOR } from './constants';
+import { COLOR, ROLE } from './constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectInputModalState } from './selectors';
-import styled from 'styled-components';
+import { selectInputModalState, selectUserRole } from './selectors';
 import { useLayoutEffect } from 'react';
 import { setUser } from './actions';
+import styled from 'styled-components';
 
 const TimeStreamContainer = ({ className }) => {
 	const inputModalIsOpen = useSelector(selectInputModalState).isOpen;
 	const dispatch = useDispatch();
+	const isVip = useSelector(selectUserRole) === ROLE.VIP;
 
 	useLayoutEffect(() => {
 		const currentUserDataJSON = sessionStorage.getItem('userData');
@@ -47,8 +48,10 @@ const TimeStreamContainer = ({ className }) => {
 					<Route path="/projects" element={<Projects />} />
 					<Route path="/project/:id" element={<Project />} />
 					<Route path="/tasks" element={<Tasks />} />
-					<Route path="/analytics" element={<Analytics />} />
-					<Route path="/project-management" element={<div>Управление проектом</div>} />
+					<Route
+						path="/analytics"
+						element={isVip ? <Analytics /> : <div>Такой страницы не существует</div>}
+					/>
 					<Route path="/user-settings" element={<UserSettings />} />
 					<Route path="/login" element={<Authorization />} />
 					<Route path="/register" element={<Registration />} />

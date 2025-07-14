@@ -55,6 +55,8 @@ const RegistrationContainer = ({ className }) => {
 				return;
 			}
 
+			console.log(user);
+
 			dispatch(setUser(user));
 			sessionStorage.setItem('userData', JSON.stringify(user));
 			navigate('/');
@@ -91,7 +93,7 @@ const RegistrationContainer = ({ className }) => {
 					})}
 				/>
 				{errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-				<Button width="270px" style="filled-dark" type="submit">
+				<Button width="350px" style="filled-dark" type="submit">
 					Зарегистрироваться
 				</Button>
 			</form>

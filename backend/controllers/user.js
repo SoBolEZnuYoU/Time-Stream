@@ -33,7 +33,20 @@ async function login(login, password) {
     return { token, user };
 }
 
+async function editUserRole(userId, role) {
+    const updateUser = await User.findByIdAndUpdate(
+        userId,
+        { role },
+        {
+            returnDocument: "after",
+        }
+    );
+
+    return updateUser;
+}
+
 module.exports = {
     register,
     login,
+    editUserRole,
 };

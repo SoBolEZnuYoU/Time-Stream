@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login } = require("../controllers/user");
+const { register, login, editUserRole } = require("../controllers/user");
 const mapUser = require("../helpers/mapUser");
 
 const router = express.Router({ mergeParams: true });
@@ -35,6 +35,12 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout", async (req, res) => {
     res.cookie("token", "", { httpOnly: true }).send({});
+});
+
+router.patch("/user/:id", async (req, res) => {
+    const updateUser = await editUserRole(req.params.id, req.body.roleId);
+
+    res.send({ user: mapUser(updateUser) });
 });
 
 module.exports = router;

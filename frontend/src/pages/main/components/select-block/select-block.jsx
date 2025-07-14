@@ -45,13 +45,15 @@ const SelectBlockContainer = ({ className, isUser }) => {
 				<>
 					{selectedItem && <div className="selected-item">{selectedItem.title}</div>}
 					{isUser && (
-						<Button width="300px" style="filled-dark" onClick={onSelectProject}>
-							Выбрать проект
-						</Button>
+						<>
+							<Button width="300px" style="filled-dark" onClick={onSelectProject}>
+								Выбрать проект
+							</Button>
+							<Button width="300px" onClick={onSelectTask}>
+								Выбрать задачу
+							</Button>
+						</>
 					)}
-					<Button width="300px" onClick={onSelectTask}>
-						Выбрать задачу
-					</Button>
 				</>
 			)}
 		</div>

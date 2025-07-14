@@ -1,23 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../button/button';
 import { COLOR, ROLE } from '../../constants';
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { selectUserRole, selectUserLogin } from '../../selectors';
-
-const StyledLink = styled(Link)`
-	height: 100%;
-	width: 100%;
-	font-size: 30px;
-	text-align: center;
-	color: ${COLOR.LIGHT};
-	border-bottom: 1px solid ${COLOR.LIGHT};
-	padding: 20px 0;
-
-	&:hover {
-		background-color: #816959;
-	}
-`;
+import styled from 'styled-components';
 
 const LeftBarContainer = ({ className }) => {
 	const navigate = useNavigate();
@@ -25,10 +11,11 @@ const LeftBarContainer = ({ className }) => {
 	const login = useSelector(selectUserLogin);
 
 	const isUser = ROLE.USER === roleId;
+	const isVIP = ROLE.VIP === roleId;
 
 	return (
 		<div className={className}>
-			{isUser ? (
+			{isUser || isVIP ? (
 				<Button type="button" style="light" onClick={() => navigate('/user-settings')}>
 					{login}
 				</Button>
@@ -38,10 +25,10 @@ const LeftBarContainer = ({ className }) => {
 				</Button>
 			)}
 			<div className="page-links">
-				<StyledLink to={'/'}>Главная</StyledLink>
-				{isUser && <StyledLink to={'/projects'}>Проекты</StyledLink>}
-				<StyledLink to={'/tasks'}>Задачи</StyledLink>
-				{isUser && <StyledLink to={'/analytics'}>Аналитика</StyledLink>}
+				<Link to={'/'}>Главная</Link>
+				{(isUser || isVIP) && <Link to={'/projects'}>Проекты</Link>}
+				{(isUser || isVIP) && <Link to={'/tasks'}>Задачи</Link>}
+				{isVIP && <Link to={'/analytics'}>Аналитика</Link>}
 			</div>
 		</div>
 	);
@@ -55,7 +42,7 @@ export const LeftBar = styled(LeftBarContainer)`
 	width: 250px;
 	height: 100%;
 	padding: 15px 0;
-	background-color: #6d554d;
+	background-color: ${COLOR.DARK};
 
 	& .page-links {
 		display: flex;
@@ -63,5 +50,19 @@ export const LeftBar = styled(LeftBarContainer)`
 		align-items: end;
 		height: fit-content;
 		width: 100%;
+
+		& a {
+			height: 100%;
+			width: 100%;
+			font-size: 30px;
+			text-align: center;
+			color: ${COLOR.LIGHT};
+			border-bottom: 1px solid ${COLOR.LIGHT};
+			padding: 20px 0;
+
+			&:hover {
+				background-color: ${COLOR.HOVER};
+			}
+		}
 	}
 `;
