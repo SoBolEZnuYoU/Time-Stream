@@ -8,8 +8,9 @@ import {
 	refreshTasks,
 	closeModal,
 	editTaskAsync,
+	resetTaskData,
 } from '../../../../actions';
-import { request } from '../../../../utils';
+import { request, transformTime } from '../../../../utils';
 import { selectCurrentTask } from '../../../../selectors';
 import styled from 'styled-components';
 
@@ -51,6 +52,7 @@ const OpenedTaskContainer = ({ className }) => {
 	};
 
 	const onBackClick = () => {
+		dispatch(resetTaskData);
 		dispatch(closeTask);
 	};
 
@@ -58,7 +60,10 @@ const OpenedTaskContainer = ({ className }) => {
 		<div className={className}>
 			<div className="task">
 				<div className="header">
-					<Icon id="fa-arrow-left" size="30px" onClick={onBackClick} />
+					<div className="align-left">
+						<Icon id="fa-arrow-left" size="30px" onClick={onBackClick} />
+						<p>В работе: {transformTime(task.spendTime)}</p>
+					</div>
 					<div className="align-right">
 						<Icon id="fa-edit" size="30px" y="3px" onClick={onOpenEditModal} />
 						<Icon id="fa-trash-o" size="30px" onClick={onDeleteTask} />
@@ -95,7 +100,15 @@ export const OpenedTask = styled(OpenedTaskContainer)`
 		& .header {
 			display: flex;
 			justify-content: space-between;
-			margin-bottom: 20px;
+			margin-bottom: 10px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid ${COLOR.DARK};
+
+			& .align-left {
+				display: flex;
+				column-gap: 20px;
+				font-weight: bold;
+			}
 
 			& .align-right {
 				display: flex;

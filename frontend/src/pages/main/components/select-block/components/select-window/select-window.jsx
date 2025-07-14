@@ -2,24 +2,31 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { request } from '../../../../../../utils';
 import { COLOR } from '../../../../../../constants';
-import { Icon } from '../../../../../../components';
+import { Icon, Loader } from '../../../../../../components';
 import { setProjectData } from '../../../../../../actions';
 import { setTaskData } from '../../../../../../actions/set-task-data';
 import styled from 'styled-components';
 
-const SelectWindowContainer = ({ className, type, setSelectWindow }) => {
+const SelectWindowContainer = ({ className, type, setSelectWindow, setTypeOfWindow }) => {
 	const dispatch = useDispatch();
 
 	const [projects, setProjects] = useState([]);
 	const [tasks, setTasks] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const content = type === 'projects' ? projects : tasks;
 
 	useEffect(() => {
 		if (type === 'projects') {
-			request(`/api/projects`, 'GET').then(({ data }) => setProjects(data.projects));
+			request(`/api/projects`, 'GET').then(({ data }) => {
+				setProjects(data.projects);
+				setIsLoading(false);
+			});
 		} else if (type === 'tasks') {
-			request('/api/tasks', 'GET').then(({ data }) => setTasks(data.tasks));
+			request('/api/tasks', 'GET').then(({ data }) => {
+				setTasks(data.tasks);
+				setIsLoading(false);
+			});
 		}
 	}, [type, dispatch]);
 
@@ -34,24 +41,35 @@ const SelectWindowContainer = ({ className, type, setSelectWindow }) => {
 
 	return (
 		<div className={className}>
-			<Icon
-				id="fa-arrow-left"
-				color={COLOR.DARK}
-				size="34px"
-				onClick={() => setSelectWindow(false)}
-			/>
-			<ul className="list">
-				{content.map((item) => (
-					<li key={item.id} onClick={() => onSelectItem(item)}>
-						{item.title}
-					</li>
-				))}
-			</ul>
+			{isLoading ? (
+				<Loader />
+			) : (
+				<>
+					<Icon
+						id="fa-arrow-left"
+						color={COLOR.DARK}
+						size="34px"
+						onClick={() => {
+							setSelectWindow(false);
+							setTypeOfWindow('');
+						}}
+					/>
+					<ul className="list">
+						{content.map((item) => (
+							<li key={item.id} onClick={() => onSelectItem(item)}>
+								{item.title}
+							</li>
+						))}
+					</ul>
+				</>
+			)}
 		</div>
 	);
 };
 
 export const SelectWindow = styled(SelectWindowContainer)`
+	position: relative;
+	height: 100%;
 
 	& i {
 		margin-bottom: 25px;
@@ -70,7 +88,7 @@ export const SelectWindow = styled(SelectWindowContainer)`
 		background-color: white;
 		border-radius: 14px;
 		padding: 7px 15px;
-        margin-bottom: 15px;
+		margin-bottom: 15px;
 		cursor: pointer;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;

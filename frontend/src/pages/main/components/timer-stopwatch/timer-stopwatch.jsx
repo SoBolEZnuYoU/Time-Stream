@@ -56,6 +56,8 @@ const TimerStopwatchContainer = ({ className }) => {
 		if (mode === 'stopwatch') {
 			setSeconds(0);
 			setMinutes(0);
+		} else if (mode === 'timer' && !seconds && !minutes) {
+			return;
 		}
 		setIsRunning(true);
 	};

@@ -1,4 +1,4 @@
-import { CreateSearchBlock, Pagination } from '../../components';
+import { CreateSearchBlock, Loader, Pagination } from '../../components';
 import { ProjectsList } from './components';
 import { useEffect, useMemo, useState } from 'react';
 import { debounce, request } from '../../utils';
@@ -21,9 +21,13 @@ const ProjectsContainer = ({ className }) => {
 	const [page, setPage] = useState(1);
 	const [searchPhrase, setSearchPhrase] = useState('');
 	const [shouldSearch, setShouldSearch] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		dispatch(loadProjectsAsync(request, page, searchPhrase));
+		setIsLoading(true);
+		dispatch(loadProjectsAsync(request, page, searchPhrase)).then(() =>
+			setIsLoading(false),
+		);
 	}, [dispatch, refreshFlag, page, shouldSearch]);
 
 	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 1000), []);
@@ -54,8 +58,16 @@ const ProjectsContainer = ({ className }) => {
 				searchPhrase={searchPhrase}
 				onChange={onSearch}
 			/>
-			<ProjectsList />
-			{lastPage > 1 && <Pagination page={page} setPage={setPage} lastPage={lastPage} />}
+			{isLoading ? (
+				<Loader />
+			) : (
+				<>
+					<ProjectsList />
+					{lastPage > 1 && (
+						<Pagination page={page} setPage={setPage} lastPage={lastPage} />
+					)}
+				</>
+			)}
 		</div>
 	);
 };

@@ -6,15 +6,9 @@ import { GraphBlock, TextBlock } from './components';
 const StatisticsBlockContainer = ({ className, type }) => {
 	return (
 		<div className={className}>
-			<H2 color={COLOR.LIGHT} >{type === 'projects' ? 'Проекты' : 'Задачи'}</H2>
+			<H2 color={COLOR.LIGHT}>{type === 'projects' ? 'Проекты' : 'Задачи'}</H2>
 			<div className="info">
-				<div className="graph-block">
-					<div className="btn-box">
-						<Button width="250px">Часов в работе</Button>
-						<Button width="250px">Завершено</Button>
-					</div>
-					<GraphBlock />
-				</div>
+				<GraphBlock />
 				<TextBlock type={type} />
 			</div>
 		</div>
@@ -37,7 +31,7 @@ export const StatisticsBlock = styled(StatisticsBlockContainer)`
 	& .info {
 		display: flex;
 		padding: 10px 15px;
-		height: 325px;
+		height: 275px;
 
 		& .graph-block {
 			width: 60%;

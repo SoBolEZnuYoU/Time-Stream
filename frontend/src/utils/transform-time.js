@@ -9,5 +9,5 @@ export const transformTime = (seconds) => {
 			? `${minutes}м`
 			: remainingSeconds
 				? `${remainingSeconds}с`
-				: null;
+				: '0c';
 };

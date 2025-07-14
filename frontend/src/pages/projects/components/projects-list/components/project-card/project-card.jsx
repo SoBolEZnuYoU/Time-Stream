@@ -13,7 +13,7 @@ const ProjectCardContainer = ({ className, project }) => {
 
 	return (
 		<li className={className} onClick={() => navigate(`/project/${id}`)}>
-			<Icon id="fa-folder" size="150px" color={COLOR.ORANGE} />
+			<Icon id="fa-folder" size="140px" color={COLOR.ORANGE} />
 			<div className="text-block">
 				<p className="title">{title}</p>
 				<p className="date">{date}</p>

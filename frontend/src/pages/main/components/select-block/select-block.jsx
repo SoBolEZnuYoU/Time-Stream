@@ -36,7 +36,11 @@ const SelectBlockContainer = ({ className, isUser }) => {
 	return (
 		<div className={className}>
 			{selectWindow ? (
-				<SelectWindow type={typeOfWindow} setSelectWindow={setSelectWindow} />
+				<SelectWindow
+					type={typeOfWindow}
+					setSelectWindow={setSelectWindow}
+					setTypeOfWindow={setTypeOfWindow}
+				/>
 			) : (
 				<>
 					{selectedItem && <div className="selected-item">{selectedItem.title}</div>}

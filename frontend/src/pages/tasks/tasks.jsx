@@ -1,4 +1,4 @@
-import { CreateSearchBlock, Pagination } from '../../components';
+import { CreateSearchBlock, Loader, Pagination } from '../../components';
 import { OpenedTask, TasksList } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTaskIsOpen, selectTasks } from '../../selectors';
@@ -23,9 +23,11 @@ const TasksContainer = ({ className }) => {
 	const [page, setPage] = useState(1);
 	const [searchPhrase, setSearchPhrase] = useState('');
 	const [shouldSearch, setShouldSearch] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		dispatch(loadTasksAsync(request, page, searchPhrase));
+		setIsLoading(true);
+		dispatch(loadTasksAsync(request, page, searchPhrase)).then(() => setIsLoading(false));
 	}, [dispatch, refreshFlag, page, shouldSearch]);
 
 	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 1000), []);
@@ -65,7 +67,7 @@ const TasksContainer = ({ className }) => {
 					searchPhrase={searchPhrase}
 					onChange={onSearch}
 				/>
-				<TasksList onClick={onOpenTask} />
+				{isLoading ? <Loader /> : <TasksList onClick={onOpenTask} />}
 			</div>
 			{lastPage > 1 && <Pagination page={page} setPage={setPage} lastPage={lastPage} />}
 			{taskIsOpen && <OpenedTask />}
