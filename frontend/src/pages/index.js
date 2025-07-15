@@ -2,6 +2,7 @@ export * from './analytics/analytics';
 export * from './authorization/authorization';
 export * from './project/project';
 export * from './main/main';
+export * from './not-found/not-found';
 export * from './projects/projects';
 export * from './registration/registration';
 export * from './tasks/tasks';

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { request } from '../../../../../../utils';
 import { COLOR } from '../../../../../../constants';
 import { Icon, Loader } from '../../../../../../components';
 import { setProjectData } from '../../../../../../actions';
 import { setTaskData } from '../../../../../../actions/set-task-data';
 import styled from 'styled-components';
+import { selectUserId } from '../../../../../../selectors';
 
 const SelectWindowContainer = ({ className, type, setSelectWindow, setTypeOfWindow }) => {
 	const dispatch = useDispatch();
@@ -13,17 +14,18 @@ const SelectWindowContainer = ({ className, type, setSelectWindow, setTypeOfWind
 	const [projects, setProjects] = useState([]);
 	const [tasks, setTasks] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const userId = useSelector(selectUserId);
 
 	const content = type === 'projects' ? projects : tasks;
 
 	useEffect(() => {
 		if (type === 'projects') {
-			request(`/api/projects`, 'GET').then(({ data }) => {
+			request(`/api/projects?userId=${userId}`, 'GET').then(({ data }) => {
 				setProjects(data.projects);
 				setIsLoading(false);
 			});
 		} else if (type === 'tasks') {
-			request('/api/tasks', 'GET').then(({ data }) => {
+			request(`/api/tasks?userId=${userId}`, 'GET').then(({ data }) => {
 				setTasks(data.tasks);
 				setIsLoading(false);
 			});
@@ -89,6 +91,7 @@ export const SelectWindow = styled(SelectWindowContainer)`
 		border-radius: 14px;
 		padding: 7px 15px;
 		margin-bottom: 15px;
+        min-width: 400px;
 		cursor: pointer;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;

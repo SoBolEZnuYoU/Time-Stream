@@ -4,10 +4,10 @@ import { SelectWindow } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentProject, selectCurrentTask } from '../../../../selectors';
 import { COLOR } from '../../../../constants';
-import styled from 'styled-components';
 import { resetProjectData, resetTaskData } from '../../../../actions';
+import styled from 'styled-components';
 
-const SelectBlockContainer = ({ className, isUser }) => {
+const SelectBlockContainer = ({ className, access }) => {
 	const [selectWindow, setSelectWindow] = useState(false);
 	const [typeOfWindow, setTypeOfWindow] = useState('');
 	const currentProject = useSelector(selectCurrentProject);
@@ -44,7 +44,7 @@ const SelectBlockContainer = ({ className, isUser }) => {
 			) : (
 				<>
 					{selectedItem && <div className="selected-item">{selectedItem.title}</div>}
-					{isUser && (
+					{access && (
 						<>
 							<Button width="300px" style="filled-dark" onClick={onSelectProject}>
 								Выбрать проект

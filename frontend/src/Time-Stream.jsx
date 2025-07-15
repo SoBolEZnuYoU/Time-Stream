@@ -9,6 +9,7 @@ import {
 	Registration,
 	Tasks,
 	UserSettings,
+	NotFound,
 } from './pages';
 import { COLOR, ROLE } from './constants';
 import { useDispatch, useSelector } from 'react-redux';
@@ -50,12 +51,12 @@ const TimeStreamContainer = ({ className }) => {
 					<Route path="/tasks" element={<Tasks />} />
 					<Route
 						path="/analytics"
-						element={isVip ? <Analytics /> : <div>Такой страницы не существует</div>}
+						element={isVip ? <Analytics /> : <NotFound>Получите полную версию</NotFound>}
 					/>
 					<Route path="/user-settings" element={<UserSettings />} />
 					<Route path="/login" element={<Authorization />} />
 					<Route path="/register" element={<Registration />} />
-					<Route path="*" element={<div>Такой страницы не существует</div>}></Route>
+					<Route path="*" element={<NotFound>Такой страницы не существует</NotFound>} />
 				</Routes>
 			</div>
 			{inputModalIsOpen && <InputModal />}
