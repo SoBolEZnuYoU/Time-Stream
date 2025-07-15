@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const MainContainer = ({ className }) => {
 	const roleId = useSelector(selectUserRole);
 
-	const access = roleId === ROLE.USER || ROLE.VIP;
+	const access = roleId === ROLE.USER || roleId === ROLE.VIP;
 	return (
 		<div className={className}>
 			<TimerStopwatch />
