@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
@@ -11,12 +13,8 @@ app.use(express.json());
 
 app.use("/api", routes);
 
-mongoose
-    .connect(
-        "mongodb://Semen:mongopass@localhost:27017/Time-Stream?authSource=admin"
-    )
-    .then(() => {
-        app.listen(port, () => {
-            console.log(`Server started on port ${port}`);
-        });
+mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => {
+    app.listen(port, () => {
+        console.log(`Server started on port ${port}`);
     });
+});
