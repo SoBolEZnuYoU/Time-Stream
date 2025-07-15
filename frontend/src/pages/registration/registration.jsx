@@ -55,8 +55,6 @@ const RegistrationContainer = ({ className }) => {
 				return;
 			}
 
-			console.log(user);
-
 			dispatch(setUser(user));
 			sessionStorage.setItem('userData', JSON.stringify(user));
 			navigate('/');

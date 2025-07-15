@@ -4,9 +4,9 @@ import { request } from '../../../../../../utils';
 import { COLOR } from '../../../../../../constants';
 import { Icon, Loader } from '../../../../../../components';
 import { setProjectData } from '../../../../../../actions';
-import { setTaskData } from '../../../../../../actions/set-task-data';
-import styled from 'styled-components';
+import { setTaskData } from '../../../../../../actions';
 import { selectUserId } from '../../../../../../selectors';
+import styled from 'styled-components';
 
 const SelectWindowContainer = ({ className, type, setSelectWindow, setTypeOfWindow }) => {
 	const dispatch = useDispatch();

@@ -1,6 +1,12 @@
 import { ACTION_TYPE } from '../actions';
 
 const initialAppState = {
+	watch: {
+		mode: 'stopwatch',
+		isRunning: false,
+		seconds: 0,
+		minutes: 0,
+	},
 	inputModal: {
 		isOpen: false,
 		question: '',
@@ -20,6 +26,26 @@ export const appReducer = (state = initialAppState, action) => {
 					...action.payload,
 					isOpen: true,
 				},
+			};
+		case ACTION_TYPE.SET_IS_RUNNING:
+			return {
+				...state,
+				watch: { ...state.watch, isRunning: action.payload },
+			};
+		case ACTION_TYPE.SET_MINUTES:
+			return {
+				...state,
+				watch: { ...state.watch, minutes: action.payload },
+			};
+		case ACTION_TYPE.SET_MODE:
+			return {
+				...state,
+				watch: { ...state.watch, mode: action.payload },
+			};
+		case ACTION_TYPE.SET_SECONDS:
+			return {
+				...state,
+				watch: { ...state.watch, seconds: action.payload },
 			};
 		case ACTION_TYPE.CLOSE_MODAL:
 			return {

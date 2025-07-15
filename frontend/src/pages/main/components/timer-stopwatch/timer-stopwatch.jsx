@@ -1,18 +1,28 @@
 import { COLOR } from '../../../../constants';
 import { Button, Icon } from '../../../../components';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { FormModeSelect, TimerInputs } from './components';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentProject, selectCurrentTask } from '../../../../selectors';
-import { editProjectAsync, editTaskAsync } from '../../../../actions';
+import {
+	selectCurrentProject,
+	selectCurrentTask,
+	selectWatchState,
+} from '../../../../selectors';
+import {
+	editProjectAsync,
+	editTaskAsync,
+	setIsRunning,
+	setMinutes,
+	setSeconds,
+} from '../../../../actions';
 import { request } from '../../../../utils';
 import styled from 'styled-components';
 
 const TimerStopwatchContainer = ({ className }) => {
-	const [mode, setMode] = useState('stopwatch');
-	const [seconds, setSeconds] = useState(0);
-	const [minutes, setMinutes] = useState(0);
-	const [isRunning, setIsRunning] = useState(false);
+	const mode = useSelector(selectWatchState).mode;
+	const seconds = useSelector(selectWatchState).seconds;
+	const minutes = useSelector(selectWatchState).minutes;
+	const isRunning = useSelector(selectWatchState).isRunning;
 
 	const currentProject = useSelector(selectCurrentProject);
 	const currentTask = useSelector(selectCurrentTask);
@@ -27,22 +37,22 @@ const TimerStopwatchContainer = ({ className }) => {
 				if (seconds === 0) {
 					if (minutes === 0) {
 						clearInterval(interval);
-						setIsRunning(false);
+						dispatch(setIsRunning(false));
 					} else {
-						setMinutes(minutes - 1);
-						setSeconds(59);
+						dispatch(setMinutes(minutes - 1));
+						dispatch(setSeconds(59));
 					}
 				} else {
-					setSeconds(seconds - 1);
+					dispatch(setSeconds(seconds - 1));
 				}
 			}, 1000);
 		} else if (isRunning && mode === 'stopwatch') {
 			interval = setInterval(() => {
 				if (seconds !== 59) {
-					setSeconds(seconds + 1);
+					dispatch(setSeconds(seconds + 1));
 				} else {
-					setMinutes(minutes + 1);
-					setSeconds(0);
+					dispatch(setMinutes(minutes + 1));
+					dispatch(setSeconds(0));
 				}
 			}, 1000);
 		} else if (!isRunning && seconds === 0 && minutes === 0) {
@@ -54,12 +64,12 @@ const TimerStopwatchContainer = ({ className }) => {
 
 	const handleStart = () => {
 		if (mode === 'stopwatch') {
-			setSeconds(0);
-			setMinutes(0);
+			dispatch(setSeconds(0));
+			dispatch(setMinutes(0));
 		} else if (mode === 'timer' && !seconds && !minutes) {
 			return;
 		}
-		setIsRunning(true);
+		dispatch(setIsRunning(true));
 	};
 
 	const handleStop = () => {
@@ -76,32 +86,22 @@ const TimerStopwatchContainer = ({ className }) => {
 				}),
 			);
 		}
-		setIsRunning(false);
-		setSeconds(0);
-		setMinutes(0);
+		dispatch(setIsRunning(false));
+		dispatch(setSeconds(0));
+		dispatch(setMinutes(0));
 	};
 
 	const handleReset = () => {
-		setIsRunning(false);
-		setSeconds(0);
-		setMinutes(0);
+		dispatch(setIsRunning(false));
+		dispatch(setSeconds(0));
+		dispatch(setMinutes(0));
 	};
 
 	return (
 		<div className={className}>
-			<FormModeSelect
-				mode={mode}
-				setMode={setMode}
-				setIsRunning={setIsRunning}
-				setSeconds={setSeconds}
-			/>
+			<FormModeSelect mode={mode} />
 			{mode === 'timer' && isRunning === false && (
-				<TimerInputs
-					minutes={minutes}
-					setMinutes={setMinutes}
-					seconds={seconds}
-					setSeconds={setSeconds}
-				/>
+				<TimerInputs minutes={minutes} seconds={seconds} />
 			)}
 			<p>
 				{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}

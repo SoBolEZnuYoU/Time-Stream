@@ -1,12 +1,22 @@
+import { useDispatch } from 'react-redux';
+import { setIsRunning, setSeconds, setMode } from '../../../../../../actions';
 import styled from 'styled-components';
 
-const FormModeSelectContainer = ({
-	className,
-	mode,
-	setMode,
-	setIsRunning,
-	setSeconds,
-}) => {
+const FormModeSelectContainer = ({ className, mode }) => {
+	const dispatch = useDispatch();
+
+	const onTimerClick = () => {
+		dispatch(setMode('timer'));
+		dispatch(setIsRunning(false));
+		dispatch(setSeconds(0));
+	};
+
+	const onStopwatchClick = () => {
+		dispatch(setMode('stopwatch'));
+		dispatch(setIsRunning(false));
+		dispatch(setSeconds(0));
+	};
+
 	return (
 		<form className={className}>
 			<label>
@@ -15,11 +25,7 @@ const FormModeSelectContainer = ({
 					name="mode"
 					value="timer"
 					checked={mode === 'timer'}
-					onChange={() => {
-						setMode('timer');
-						setIsRunning(false);
-						setSeconds(0);
-					}}
+					onChange={onTimerClick}
 				/>
 				Таймер
 			</label>
@@ -29,11 +35,7 @@ const FormModeSelectContainer = ({
 					name="mode"
 					value="stopwatch"
 					checked={mode === 'stopwatch'}
-					onChange={() => {
-						setMode('stopwatch');
-						setIsRunning(false);
-						setSeconds(0);
-					}}
+					onChange={onStopwatchClick}
 				/>
 				Секундомер
 			</label>

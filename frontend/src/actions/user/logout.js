@@ -1,5 +1,5 @@
-import { request } from '../utils';
-import { ACTION_TYPE } from './action-type';
+import { request } from '../../utils';
+import { ACTION_TYPE } from '../action-type';
 
 export const logout = () => {
 	request('/api/logout', 'POST');

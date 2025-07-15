@@ -1,4 +1,3 @@
-export * from './select-app-theme';
 export * from './select-current-task';
 export * from './select-input-modal-state';
 export * from './select-current-project';
@@ -9,3 +8,4 @@ export * from './select-user-id';
 export * from './select-user-login';
 export * from './select-user-role';
 export * from './select-user-session';
+export * from './select-watch-state';

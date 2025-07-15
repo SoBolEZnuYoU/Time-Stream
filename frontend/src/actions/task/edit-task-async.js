@@ -1,4 +1,4 @@
-import { refreshTasks } from './refresh-tasks';
+import { refreshTasks } from '../tasks/refresh-tasks';
 import { setTaskData } from './set-task-data';
 
 export const editTaskAsync = (request, id, newData) => (dispatch) => {

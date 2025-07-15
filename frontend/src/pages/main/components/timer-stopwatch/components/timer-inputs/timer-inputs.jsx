@@ -1,27 +1,24 @@
-import styled from 'styled-components';
 import { Input } from '../../../../../../components';
+import { setSeconds, setMinutes } from '../../../../../../actions';
+import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
-const TimerInputsContainer = ({
-	className,
-	minutes,
-	setMinutes,
-	seconds,
-	setSeconds,
-}) => {
+const TimerInputsContainer = ({ className, minutes, seconds }) => {
+	const dispatch = useDispatch();
 	return (
 		<div className={className}>
 			<Input
 				width="70px"
 				type="number"
 				value={minutes}
-				onChange={(e) => setMinutes(Math.max(0, e.target.value))}
+				onChange={(e) => dispatch(setMinutes(Math.max(0, e.target.value)))}
 			/>
 			<span>:</span>
 			<Input
 				width="70px"
 				type="number"
 				value={seconds}
-				onChange={(e) => setSeconds(Math.max(0, e.target.value))}
+				onChange={(e) => dispatch(setSeconds(Math.max(0, e.target.value)))}
 			/>
 		</div>
 	);
