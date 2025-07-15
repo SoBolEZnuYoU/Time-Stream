@@ -1,6 +1,6 @@
 import { COLOR } from '../../../../constants';
 import { Button, Icon } from '../../../../components';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FormModeSelect, TimerInputs } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -19,6 +19,11 @@ import { request } from '../../../../utils';
 import styled from 'styled-components';
 
 const TimerStopwatchContainer = ({ className }) => {
+	const [startTime, setStartTime] = useState(() => {
+		const savedTime = sessionStorage.getItem('startTime');
+		return savedTime ? Number(savedTime) : 0;
+	});
+
 	const mode = useSelector(selectWatchState).mode;
 	const seconds = useSelector(selectWatchState).seconds;
 	const minutes = useSelector(selectWatchState).minutes;
@@ -48,27 +53,19 @@ const TimerStopwatchContainer = ({ className }) => {
 			}, 1000);
 		} else if (isRunning && mode === 'stopwatch') {
 			interval = setInterval(() => {
-				if (seconds !== 59) {
-					dispatch(setSeconds(seconds + 1));
-				} else {
-					dispatch(setMinutes(minutes + 1));
-					dispatch(setSeconds(0));
-				}
+				dispatch(setSeconds(Math.trunc(Date.now() / 1000) - startTime));
 			}, 1000);
 		} else if (!isRunning && seconds === 0 && minutes === 0) {
 			clearInterval(interval);
+			sessionStorage.removeItem('startTime');
 		}
 
 		return () => clearInterval(interval);
 	}, [isRunning, seconds, minutes, mode]);
 
 	const handleStart = () => {
-		if (mode === 'stopwatch') {
-			dispatch(setSeconds(0));
-			dispatch(setMinutes(0));
-		} else if (mode === 'timer' && !seconds && !minutes) {
-			return;
-		}
+		setStartTime(Math.floor(Date.now() / 1000));
+		sessionStorage.setItem('startTime', Math.trunc(Date.now() / 1000));
 		dispatch(setIsRunning(true));
 	};
 
@@ -76,13 +73,13 @@ const TimerStopwatchContainer = ({ className }) => {
 		if (currentProject.id) {
 			dispatch(
 				editProjectAsync(request, currentProject.id, {
-					spendTime: currentProject?.spendTime + minutes * 60 + seconds,
+					spendTime: currentProject?.spendTime + seconds,
 				}),
 			);
 		} else if (currentTask.id) {
 			dispatch(
 				editTaskAsync(request, currentTask.id, {
-					spendTime: currentTask?.spendTime + minutes * 60 + seconds,
+					spendTime: currentTask?.spendTime + seconds,
 				}),
 			);
 		}
@@ -104,7 +101,10 @@ const TimerStopwatchContainer = ({ className }) => {
 				<TimerInputs minutes={minutes} seconds={seconds} />
 			)}
 			<p>
-				{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
+				{mode === 'stopwatch'
+					? String(Math.floor(seconds / 60)).padStart(2, '0')
+					: String(minutes).padStart(2, '0')}
+				:{String(seconds % 60).padStart(2, '0')}
 			</p>
 			<div className="btn-box">
 				<Icon id="fa-play-circle-o" size="80px" onClick={handleStart} />
