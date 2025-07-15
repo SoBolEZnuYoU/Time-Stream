@@ -10,7 +10,7 @@ async function addProject(title, userId) {
 }
 
 // edit
-async function editProject(data) {
+async function editProject(id, data) {
     const newProject = await Project.findByIdAndUpdate(id, data, {
         returnDocument: "after",
     });
